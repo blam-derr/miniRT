@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   int_array_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/13 17:25:24 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/13 18:03:21 by jode-cas         ###   ########.fr       */
+/*   Created: 2026/04/13 18:00:42 by jode-cas          #+#    #+#             */
+/*   Updated: 2026/04/13 18:03:08 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "miniRT.h"
 
-# include "libft.h"
-# include "mlx.h"
-# include "hooks.h"
-# include <stdlib.h>
-
-typedef struct s_mlx_args
+void	free_int_array(int *array)
 {
-	void	*mlx;
-	void	*window;
-}	t_mlx_args;
+	if (!array)
+		return ;
+	free(array);
+}
 
-typedef struct s_program
+int	int_array_length(int *array)
 {
-	t_mlx_args	mlx;
-}	t_program;
+	int	length;
 
-#endif
+	length = 0;
+	if (!array)
+		return (0);
+	while (array[length] != 0)
+		length++;
+	return (length);
+}
