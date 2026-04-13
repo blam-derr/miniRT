@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   hooks.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/13 17:25:24 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/13 17:25:25 by fbenini-         ###   ########.fr       */
+/*   Created: 2026/04/13 17:25:20 by fbenini-          #+#    #+#             */
+/*   Updated: 2026/04/13 17:27:03 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef HOOKS_H
+# define HOOKS_H
 
-# include "libft.h"
-# include "mlx.h"
-# include "hooks.h"
-
-typedef struct s_mlx_args
-{
-	void	*mlx;
-	void	*window;
-}	t_mlx_args;
-
-typedef struct s_program
-{
-	t_mlx_args	mlx;
-}	t_program;
+int	close_window(void *params);
+int	handle_keymaps(int keycode, void *params);
 
 #endif

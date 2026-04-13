@@ -18,7 +18,8 @@ LIBFT_HDR = ./libs/libft/libft.h
 
 INC = ./includes
 
-SRCS = ./srcs/main.c
+SRCS = ./srcs/main.c \
+	   ./srcs/hooks.c
 
 OBJS = $(patsubst ./srcs/%.c,./objs/%.o,$(SRCS))
 
