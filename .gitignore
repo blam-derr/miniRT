@@ -1,0 +1,4 @@
+*.o
+miniRT
+compile_flags.txt
+*.a
