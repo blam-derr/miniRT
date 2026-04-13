@@ -54,4 +54,7 @@ re: fclean $(NAME)
 
 re-bonus: fclean bonus
 
-.PHONY: all fclean clean re bonus
+norm:
+	norminette ./srcs ./includes
+
+.PHONY: all fclean clean re bonus norm
