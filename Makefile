@@ -21,7 +21,9 @@ INC = ./includes
 SRCS = ./srcs/main.c \
 	   ./srcs/hooks.c \
 	   ./srcs/utils/arrays/int_array_utils.c \
-	   ./srcs/utils/arrays/string_array_utils.c
+	   ./srcs/utils/arrays/string_array_utils.c \
+	   ./srcs/parser/parser.c \
+	   ./srcs/parser/file_validation.c \
 
 OBJS = $(patsubst ./srcs/%.c,./objs/%.o,$(SRCS))
 

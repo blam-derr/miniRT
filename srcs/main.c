@@ -6,12 +6,13 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/13 17:26:53 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/04/14 16:41:41 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "mlx.h"
+#include "parser.h"
 
 t_program	init_program(void)
 {
@@ -31,10 +32,13 @@ void	clear_program(t_program program)
 	free(program.mlx.mlx);
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_program	program;
 
+	if (argc != 2)
+		return (1);
+	parse_scene(argv[1]);
 	program = init_program();
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
 	mlx_key_hook(program.mlx.window, handle_keymaps, &program.mlx);
