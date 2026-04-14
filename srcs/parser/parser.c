@@ -1,34 +1,45 @@
 #include <parser.h>
 #include <fcntl.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <unistd.h>
 #include "libft.h"
 #include "miniRT.h"
 #include "scene.h"
 #include "utils.h"
 
-uint8_t	is_line_empty(char *line)
+uint8_t	parse_line(char *line, t_scene *scene)
 {
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != ' ' && !(line[i] >= '\t' && line[i] <= '\r'))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	parse_line(char *line, t_scene *scene)
-{
-	char	**splitted;
+	char			**splitted;
+	t_dispatched_fn	fn;
+	int				res;
 
 	(void)scene;
-	if (is_line_empty(line))
-		return ;
+	if (is_string_whitespace(line))
+		return (1);
 	splitted = ft_split_charset(line, " \t\n\v\f\r,");
+	fn = dispatch(splitted, scene);
+	if (!fn)
+	{
+		free_string_array(splitted);
+		return (0);
+	}
+	res = fn(splitted, scene);
 	free_string_array(splitted);
+	return (res);
+}
+
+void	graceful_exit(char *line, int fd, t_scene *scene)
+{
+	(void)scene;
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	ft_putstr_fd("Error.\n", 2);
+	exit(1);
 }
 
 t_scene	parse_scene(char *filename)
@@ -42,7 +53,8 @@ t_scene	parse_scene(char *filename)
 	line = get_next_line(fd);
 	while (line)
 	{
-		parse_line(line, &scene);
+		if (!parse_line(line, &scene))
+			graceful_exit(line, fd, &scene);
 		free(line);
 		line = get_next_line(fd);
 	}

@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   is_whitespace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/14 16:32:15 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/14 17:53:28 by fbenini-         ###   ########.fr       */
+/*   Created: 2026/04/14 17:38:03 by fbenini-          #+#    #+#             */
+/*   Updated: 2026/04/14 17:38:09 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include <stdint.h>
+#include "utils.h"
 
-#include "scene.h"
-# include <stdint.h>
-
-t_scene	parse_scene(char *filename);
-
-uint8_t	validate_file(char *filename, int *fd);
-
-typedef	uint8_t	(*t_dispatched_fn)(char **values, t_scene *scene);
-
-typedef struct s_dict_dispatcher
+uint8_t	is_string_whitespace(char *line)
 {
-	char			*key;
-	t_dispatched_fn	function;
-}	t_dict_dispatcher;
+	int	i;
 
-t_dispatched_fn	dispatch(char **values, t_scene *scene);
-
-#endif
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && !(line[i] >= '\t' && line[i] <= '\r'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
