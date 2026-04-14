@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/14 16:32:15 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/14 17:10:30 by fbenini-         ###   ########.fr       */
+/*   Created: 2026/04/14 17:27:03 by fbenini-          #+#    #+#             */
+/*   Updated: 2026/04/14 17:27:25 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef UTILS_H
+# define UTILS_H
 
-#include "scene.h"
-# include <stdint.h>
-
-t_scene	parse_scene(char *filename);
-
-uint8_t	validate_file(char *filename, int *fd);
+char	**ft_split_charset(char *str, char *charset);
+void	free_string_array(char **array);
 
 #endif
