@@ -1,4 +1,4 @@
-name: Makefile CI
+name: Norminette
 
 on:
   push:
@@ -15,6 +15,7 @@ jobs:
       run: python3 -m pip install -U norminette
   check:
     runs-on: *runner
+    needs: build
     steps:
     - uses: actions/checkout@v4
     - name: Check norminette
