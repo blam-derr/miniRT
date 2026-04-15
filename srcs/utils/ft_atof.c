@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 18:10:05 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/14 18:10:15 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/04/15 19:36:51 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
+#include "libft.h"
 
 static int	ft_is_space(char c)
 {
@@ -27,7 +27,7 @@ static double	parse_fraction(const char *str, int *i)
 	if (str[*i] == '.')
 	{
 		(*i)++;
-		while (isdigit(str[*i]))
+		while (ft_isdigit(str[*i]))
 		{
 			fraction = fraction * 10.0 + (str[*i] - '0');
 			divisor *= 10.0;
@@ -42,7 +42,7 @@ static double	parse_number(const char *str, int *i)
 	double	result;
 
 	result = 0.0;
-	while (isdigit(str[*i]))
+	while (ft_isdigit(str[*i]))
 	{
 		result = result * 10.0 + (str[*i] - '0');
 		(*i)++;
