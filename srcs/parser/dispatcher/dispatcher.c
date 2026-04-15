@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:28 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/15 12:08:29 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/04/15 19:19:50 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,6 @@
 #include "utils.h"
 #include "vec.h"
 #include <stdint.h>
-
-uint8_t	parse_ambient(char **values, t_scene *scene)
-{
-	t_vec	color;
-
-	if (string_array_length(values) != 5)
-		return (0);
-	scene->ambient.intensity = ft_atof(values[1]);
-	color.x = ft_atof(values[2]);
-	color.y = ft_atof(values[3]);
-	color.z = ft_atof(values[4]);
-	scene->ambient.color = color;
-	return (1);
-}
 
 t_dispatched_fn	dispatch(char **values, t_scene *scene)
 {
