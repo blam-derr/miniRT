@@ -63,6 +63,6 @@ re: fclean $(NAME)
 re-bonus: fclean bonus
 
 norm:
-	norminette ./srcs ./includes
+	norminette ./srcs ./includes | grep Error || echo "OK"
 
 .PHONY: all fclean clean re bonus norm
