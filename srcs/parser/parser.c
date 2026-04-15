@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:02 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/15 12:08:05 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/04/15 20:04:35 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parser.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <unistd.h>
 #include "libft.h"
 #include "miniRT.h"
 #include "scene.h"
 #include "utils.h"
+#include "parser.h"
+#include <fcntl.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <unistd.h>
 
 uint8_t	parse_line(char *line, t_scene *scene)
 {
@@ -63,6 +63,7 @@ t_scene	parse_scene(char *filename)
 	if (!validate_file(filename, &fd))
 		exit(1);
 	line = get_next_line(fd);
+	scene.objects = NULL;
 	while (line)
 	{
 		if (!parse_line(line, &scene))
