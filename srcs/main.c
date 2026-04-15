@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/15 18:56:24 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/15 19:05:38 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	clear_program(t_program program)
 int	main(int argc, char *argv[])
 {
 	t_program	program;
-	int i = 0;
 
 	if (argc != 2)
 		return (1);
