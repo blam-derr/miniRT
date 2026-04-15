@@ -1,4 +1,4 @@
-*This project was created as part of the 42 curriculum by jode-cas and fbenini-*
+*This project was created as part of the 42 curriculum by fbenini- and jode-cas*
 
 # 🎨 miniRT - 42 Project
 
@@ -6,6 +6,7 @@
 > A simplified rendering engine developed in C to explore the world of Ray Tracing and the implementation of mathematical and physical formulas.
 
 ---
+[![Norminette](https://github.com/blam-derr/miniRT/actions/workflows/norminette.yml/badge.svg?branch=main&event=push)](https://github.com/blam-derr/miniRT/actions/workflows/norminette.yml)
 
 ## 🚀 Description
 
