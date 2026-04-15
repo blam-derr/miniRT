@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:28 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/15 19:41:28 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/15 19:57:49 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_dispatched_fn	dispatch(char **values, t_scene *scene)
 	{"A", parse_ambient},
 	{"C", parse_camera},
 	{"L", parse_light},
-	{"sp", parse_ambient},
-	{"pl", parse_ambient},
-	{"cy", parse_ambient},
+	{"sp", parse_sphere},
+	{"pl", parse_plane},
+	{"cy", parse_cylinder},
 	};
 
 	i = 0;
