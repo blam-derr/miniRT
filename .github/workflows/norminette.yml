@@ -8,10 +8,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: &runner ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Install dependencies
+    - name: Install norminette
       run: python3 -m pip install -U norminette
+  check:
+    runs-on: *runner
+    steps:
+    - uses: actions/checkout@v4
     - name: Check norminette
       run: norminette ./srcs ./includes
