@@ -28,6 +28,8 @@ SRCS = ./srcs/main.c \
 	   ./srcs/parser/parser.c \
 	   ./srcs/parser/file_validation.c \
 	   ./srcs/parser/dispatcher/dispatcher.c \
+		 ./srcs/parser/dispatcher/parse_required.c \
+		 ./srcs/parser/dispatcher/parse_objects.c
 
 OBJS = $(patsubst ./srcs/%.c,./objs/%.o,$(SRCS))
 
