@@ -20,6 +20,9 @@ t_scene				parse_scene(char *filename);
 uint8_t				parse_ambient(char **values, t_scene *scene);
 uint8_t				parse_camera(char **values, t_scene *scene);
 uint8_t				parse_light(char **values, t_scene *scene);
+uint8_t				parse_sphere(char **values, t_scene *scene);
+uint8_t				parse_plane(char **values, t_scene *scene);
+uint8_t				parse_cylinder(char **values, t_scene *scene);
 uint8_t				validate_file(char *filename, int *fd);
 
 typedef uint8_t		(*t_dispatched_fn)(char **values, t_scene *scene);
