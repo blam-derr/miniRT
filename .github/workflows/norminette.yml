@@ -7,16 +7,14 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-    runs-on: &runner ubuntu-latest
+  norminette:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Install norminette
-      run: python3 -m pip install -U norminette
-  check:
-    runs-on: *runner
-    needs: build
-    steps:
-    - uses: actions/checkout@v4
-    - name: Check norminette
-      run: norminette ./srcs ./includes
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install norminette
+        run: python3 -m pip install -U norminette
+      - name: Run norminette
+        run: python3 -m norminette ./srcs ./includes
