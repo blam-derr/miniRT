@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   put_pixel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/14 17:27:03 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/16 20:40:15 by jode-cas         ###   ########.fr       */
+/*   Created: 2026/04/16 20:32:56 by jode-cas          #+#    #+#             */
+/*   Updated: 2026/04/16 20:45:26 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "miniRT.h"
 
-# include "miniRT.h"
-# include <stdint.h>
+void	put_pixel(t_img_data *data, int x, int y, unsigned int color)
+{
+	char	*dst;
 
-char	**ft_split_charset(char *str, char *charset);
-void	free_string_array(char **array);
-int		string_array_length(char **array);
-uint8_t	check_array_of_numbers(char **values);
-
-double	ft_atof(const char *str);
-
-uint8_t	is_string_whitespace(char *line);
-
-void	put_pixel(t_img_data *data, int x, int y, unsigned int color);
-
-#endif
+	if (x < 0 || x >= data->width || y < 0 || y >= data->height)
+		return ;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}

@@ -6,13 +6,14 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/16 19:23:07 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/16 20:45:36 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "mlx.h"
 #include "parser.h"
+#include "utils.h"
 
 t_program	init_program(void)
 {
@@ -21,6 +22,13 @@ t_program	init_program(void)
 
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, 800, 600, "MINIRT");
+	program.img.width = 800;
+	program.img.height = 600;
+	program.img.img = mlx_new_image(mlx.mlx, program.img.width,
+			program.img.height);
+	program.img.addr = mlx_get_data_addr(program.img.img,
+			&program.img.bits_per_pixel, &program.img.line_length,
+			&program.img.endian);
 	program.mlx = mlx;
 	return (program);
 }
@@ -42,6 +50,9 @@ int	main(int argc, char *argv[])
 	scene = parse_scene(argv[1]);
 	program = init_program();
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
+	put_pixel(&program.img, 40, 40, 0xFF0000);
+	mlx_put_image_to_window(program.mlx.mlx, program.mlx.window,
+		program.img.img, 0, 0);
 	mlx_key_hook(program.mlx.window, handle_keymaps, &program.mlx);
 	mlx_loop(program.mlx.mlx);
 	clear_program(program);

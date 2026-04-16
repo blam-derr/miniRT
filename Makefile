@@ -25,6 +25,7 @@ SRCS = ./srcs/main.c \
 	   ./srcs/utils/arrays/string_array_utils.c \
 	   ./srcs/utils/arrays/ft_split_charset.c \
 	   ./srcs/utils/string/is_whitespace.c \
+		 ./srcs/utils/draw/put_pixel.c \
 	   ./srcs/parser/parser.c \
 	   ./srcs/parser/file_validation.c \
 	   ./srcs/parser/dispatcher/dispatcher.c \
