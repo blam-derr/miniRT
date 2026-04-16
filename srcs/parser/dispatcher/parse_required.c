@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 19:19:53 by jode-cas          #+#    #+#             */
-/*   Updated: 2026/04/15 19:58:56 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/16 18:57:52 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 uint8_t	parse_ambient(char **values, t_scene *scene)
 {
-	if (string_array_length(values) != 5)
+	if (string_array_length(values) != 5 || !check_array_of_numbers(values + 1))
 		return (0);
 	scene->ambient.intensity = ft_atof(values[1]);
 	scene->ambient.color.x = ft_atof(values[2]);
@@ -26,7 +26,7 @@ uint8_t	parse_ambient(char **values, t_scene *scene)
 
 uint8_t	parse_camera(char **values, t_scene *scene)
 {
-	if (string_array_length(values) != 8)
+	if (string_array_length(values) != 8 || !check_array_of_numbers(values + 1))
 		return (0);
 	scene->camera.position.x = ft_atof(values[1]);
 	scene->camera.position.y = ft_atof(values[2]);
@@ -40,7 +40,7 @@ uint8_t	parse_camera(char **values, t_scene *scene)
 
 uint8_t	parse_light(char **values, t_scene *scene)
 {
-	if (string_array_length(values) != 8)
+	if (string_array_length(values) != 8 || !check_array_of_numbers(values + 1))
 		return (0);
 	scene->light.position.x = ft_atof(values[1]);
 	scene->light.position.y = ft_atof(values[2]);

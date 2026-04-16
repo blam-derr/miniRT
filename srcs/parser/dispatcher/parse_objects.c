@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 19:44:34 by jode-cas          #+#    #+#             */
-/*   Updated: 2026/04/15 19:55:45 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/16 18:57:52 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ uint8_t	parse_sphere(char **values, t_scene *scene)
 {
 	t_sphere	*sphere;
 
-	if (string_array_length(values) != 8)
+	if (string_array_length(values) != 8 || !check_array_of_numbers(values + 1))
 		return (0);
 	sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
@@ -37,7 +37,8 @@ uint8_t	parse_plane(char **values, t_scene *scene)
 {
 	t_plane	*plane;
 
-	if (string_array_length(values) != 10)
+	if (string_array_length(values) != 10 || !check_array_of_numbers(values
+			+ 1))
 		return (0);
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
@@ -59,7 +60,8 @@ uint8_t	parse_cylinder(char **values, t_scene *scene)
 {
 	t_cylinder	*cylinder;
 
-	if (string_array_length(values) != 12)
+	if (string_array_length(values) != 12 || !check_array_of_numbers(values
+			+ 1))
 		return (0);
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
