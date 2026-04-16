@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:38 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/15 19:48:58 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/16 19:23:07 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ typedef struct s_scene
 	t_light		light;
 	t_list		*objects;
 }				t_scene;
+
+void	free_whole_scene(t_scene *scene);
 
 #endif

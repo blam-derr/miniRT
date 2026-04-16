@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/15 19:05:38 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/16 19:23:07 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ void	clear_program(t_program program)
 int	main(int argc, char *argv[])
 {
 	t_program	program;
+	t_scene		scene;
 
 	if (argc != 2)
 		return (1);
-	parse_scene(argv[1]);
+	scene = parse_scene(argv[1]);
 	program = init_program();
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
 	mlx_key_hook(program.mlx.window, handle_keymaps, &program.mlx);
 	mlx_loop(program.mlx.mlx);
 	clear_program(program);
+	free_whole_scene(&scene);
 	return (0);
 }
