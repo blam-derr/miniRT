@@ -6,13 +6,14 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/16 20:45:36 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/21 19:26:21 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "mlx.h"
 #include "parser.h"
+#include "scene.h"
 #include "utils.h"
 
 t_program	init_program(void)
@@ -40,6 +41,32 @@ void	clear_program(t_program program)
 	free(program.mlx.mlx);
 }
 
+void	fill_mlx_img(t_scene scene, t_img_data *img)
+{
+	int				i;
+	int				j;
+	t_vec			rgb_color;
+	unsigned int	hex_color;
+	float			intensity;
+
+	i = 0;
+	while (i < img->width)
+	{
+		j = 0;
+		intensity = scene.ambient.intensity;
+		while (j < img->height)
+		{
+			rgb_color = apply_color_intensity(
+					intensity, scene.ambient.color);
+			hex_color = vec_to_hex(rgb_color);
+			put_pixel(img, i, j, hex_color);
+			j++;
+			intensity -= (float)j / 1e6;
+		}
+		i++;
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	t_program	program;
@@ -50,7 +77,7 @@ int	main(int argc, char *argv[])
 	scene = parse_scene(argv[1]);
 	program = init_program();
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
-	put_pixel(&program.img, 40, 40, 0xFF0000);
+	fill_mlx_img(scene, &program.img);
 	mlx_put_image_to_window(program.mlx.mlx, program.mlx.window,
 		program.img.img, 0, 0);
 	mlx_key_hook(program.mlx.window, handle_keymaps, &program.mlx);
