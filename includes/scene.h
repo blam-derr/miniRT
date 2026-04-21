@@ -16,6 +16,12 @@
 # include "libft.h"
 # include "vec.h"
 
+typedef enum e_object_type {
+	PLANE,
+	SPHERE,
+	CYLINDER,
+}				t_object_type;
+
 typedef struct s_ambient
 {
 	float		intensity;
@@ -58,6 +64,16 @@ typedef struct s_cylinder
 	float		height;
 	t_vec		color;
 }				t_cylinder;
+
+typedef struct s_generic_primitive
+{
+	int			type;
+	union {
+		t_plane		plane;
+		t_cylinder	cylinder;
+		t_sphere	sphere;
+	}			u_data;
+}				t_generic_primitive;
 
 typedef struct s_scene
 {
