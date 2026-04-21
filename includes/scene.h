@@ -16,7 +16,8 @@
 # include "libft.h"
 # include "vec.h"
 
-typedef enum e_object_type {
+typedef enum e_object_type
+{
 	PLANE,
 	SPHERE,
 	CYLINDER,
@@ -68,7 +69,8 @@ typedef struct s_cylinder
 typedef struct s_generic_primitive
 {
 	int			type;
-	union {
+	union
+	{
 		t_plane		plane;
 		t_cylinder	cylinder;
 		t_sphere	sphere;

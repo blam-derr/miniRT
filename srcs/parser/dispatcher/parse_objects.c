@@ -38,7 +38,8 @@ uint8_t	parse_plane(char **values, t_scene *scene)
 {
 	t_generic_primitive	*plane;
 
-	if (string_array_length(values) != 10 || !check_array_of_numbers(values + 1))
+	if (string_array_length(values) != 10
+		|| !check_array_of_numbers(values + 1))
 		return (0);
 	plane = malloc(sizeof(t_generic_primitive));
 	if (!plane)
@@ -61,7 +62,8 @@ uint8_t	parse_cylinder(char **values, t_scene *scene)
 {
 	t_generic_primitive	*cylinder;
 
-	if (string_array_length(values) != 12 || !check_array_of_numbers(values + 1))
+	if (string_array_length(values) != 12
+		|| !check_array_of_numbers(values + 1))
 		return (0);
 	cylinder = malloc(sizeof(t_generic_primitive));
 	if (!cylinder)
