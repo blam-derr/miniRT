@@ -36,6 +36,7 @@ t_program	init_program(void)
 
 void	clear_program(t_program program)
 {
+	mlx_destroy_image(program.mlx.mlx, program.img.img);
 	mlx_destroy_window(program.mlx.mlx, program.mlx.window);
 	mlx_destroy_display(program.mlx.mlx);
 	free(program.mlx.mlx);
