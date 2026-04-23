@@ -46,7 +46,7 @@ void	fill_mlx_img(t_scene scene, t_img_data *img)
 {
 	int				i;
 	int				j;
-	t_vec			rgb_color;
+	t_vec3			rgb_color;
 	unsigned int	hex_color;
 	float			intensity;
 

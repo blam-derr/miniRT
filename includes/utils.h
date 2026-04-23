@@ -27,7 +27,7 @@ double		ft_atof(const char *str);
 uint8_t		is_string_whitespace(char *line);
 
 void		put_pixel(t_img_data *data, int x, int y, unsigned int color);
-uint32_t	vec_to_hex(t_vec color);
-t_vec		apply_color_intensity(float intensity, t_vec color);
+uint32_t	vec_to_hex(t_vec3 color);
+t_vec3		apply_color_intensity(float intensity, t_vec3 color);
 
 #endif

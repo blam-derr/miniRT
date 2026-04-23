@@ -18,21 +18,22 @@ LIBFT_HDR = ./libs/libft/libft.h
 
 INC = ./includes
 
-SRCS = ./srcs/main.c \
-	   ./srcs/hooks.c \
-	   ./srcs/utils/ft_atof.c \
-	   ./srcs/utils/arrays/int_array_utils.c \
-	   ./srcs/utils/arrays/string_array_utils.c \
-	   ./srcs/utils/arrays/ft_split_charset.c \
-	   ./srcs/utils/string/is_whitespace.c \
-		 ./srcs/utils/draw/put_pixel.c \
-		 ./srcs/utils/draw/color.c \
-	   ./srcs/parser/parser.c \
-	   ./srcs/parser/file_validation.c \
-	   ./srcs/parser/dispatcher/dispatcher.c \
-		 ./srcs/parser/dispatcher/parse_required.c \
-		 ./srcs/parser/dispatcher/parse_objects.c \
-		 ./srcs/scene/cleanup.c
+SRCS =	./srcs/main.c \
+		./srcs/hooks.c \
+		./srcs/utils/ft_atof.c \
+		./srcs/utils/arrays/int_array_utils.c \
+		./srcs/utils/arrays/string_array_utils.c \
+		./srcs/utils/arrays/ft_split_charset.c \
+		./srcs/utils/string/is_whitespace.c \
+		./srcs/utils/draw/put_pixel.c \
+		./srcs/utils/draw/color.c \
+		./srcs/utils/algebra/vec3.c \
+		./srcs/parser/parser.c \
+		./srcs/parser/file_validation.c \
+		./srcs/parser/dispatcher/dispatcher.c \
+		./srcs/parser/dispatcher/parse_required.c \
+		./srcs/parser/dispatcher/parse_objects.c \
+		./srcs/scene/cleanup.c
 
 OBJS = $(patsubst ./srcs/%.c,./objs/%.o,$(SRCS))
 

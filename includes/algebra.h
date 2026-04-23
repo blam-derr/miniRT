@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec.h                                              :+:      :+:    :+:   */
+/*   algebra.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/15 12:08:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/15 12:09:34 by fbenini-         ###   ########.fr       */
+/*   Created: 2026/04/22 20:57:01 by fbenini-          #+#    #+#             */
+/*   Updated: 2026/04/22 20:57:23 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VEC_H
-# define VEC_H
+#ifndef ALGEBRA_H
+# define ALGEBRA_H
 
-typedef struct s_vec3
-{
-	float	x;
-	float	y;
-	float	z;
-}	t_vec3;
+# include "vec.h"
+
+t_vec3	vec3_mul(t_vec3 v, float s);
 
 #endif

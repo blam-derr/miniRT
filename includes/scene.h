@@ -26,44 +26,44 @@ typedef enum e_object_type
 typedef struct s_ambient
 {
 	float		intensity;
-	t_vec		color;
+	t_vec3		color;
 }				t_ambient;
 
 typedef struct s_camera
 {
-	t_vec		position;
-	t_vec		direction;
+	t_vec3		position;
+	t_vec3		direction;
 	float		fov;
 }				t_camera;
 
 typedef struct s_light
 {
-	t_vec		position;
-	t_vec		color;
+	t_vec3		position;
+	t_vec3		color;
 	float		intensity;
 }				t_light;
 
 typedef struct s_sphere
 {
-	t_vec		position;
+	t_vec3		position;
 	float		radius;
-	t_vec		color;
+	t_vec3		color;
 }				t_sphere;
 
 typedef struct s_plane
 {
-	t_vec		position;
-	t_vec		normal;
-	t_vec		color;
+	t_vec3		position;
+	t_vec3		normal;
+	t_vec3		color;
 }				t_plane;
 
 typedef struct s_cylinder
 {
-	t_vec		position;
-	t_vec		orientation;
+	t_vec3		position;
+	t_vec3		orientation;
 	float		radius;
 	float		height;
-	t_vec		color;
+	t_vec3		color;
 }				t_cylinder;
 
 typedef struct s_generic_primitive
