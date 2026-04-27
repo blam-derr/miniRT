@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:38 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/16 19:23:07 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:59:03 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ typedef struct s_camera
 {
 	t_vec3		position;
 	t_vec3		direction;
+	t_vec3		forward;
+	t_vec3		up;
+	t_vec3		right;
 	float		fov;
 }				t_camera;
 

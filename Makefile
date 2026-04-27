@@ -27,7 +27,8 @@ SRCS =	./srcs/main.c \
 		./srcs/utils/string/is_whitespace.c \
 		./srcs/utils/draw/put_pixel.c \
 		./srcs/utils/draw/color.c \
-		./srcs/utils/algebra/vec3.c \
+		./srcs/utils/algebra/base_vec3.c \
+		./srcs/utils/algebra/adv_vec3.c \
 		./srcs/parser/parser.c \
 		./srcs/parser/file_validation.c \
 		./srcs/parser/dispatcher/dispatcher.c \

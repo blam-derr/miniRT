@@ -6,13 +6,12 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 18:53:48 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/22 20:59:20 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:57:21 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include "vec.h"
-#include "algebra.h"
 
 static int	clamp_color(float c)
 {

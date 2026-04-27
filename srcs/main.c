@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/21 19:26:21 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/04/27 16:56:48 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include "scene.h"
 #include "utils.h"
+#include <stdio.h>
 
 t_program	init_program(void)
 {
