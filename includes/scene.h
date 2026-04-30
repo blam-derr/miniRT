@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:38 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/27 16:59:03 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:09:18 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "vec.h"
+# include "camera.h"
 
 typedef enum e_object_type
 {
@@ -28,16 +29,6 @@ typedef struct s_ambient
 	float		intensity;
 	t_vec3		color;
 }				t_ambient;
-
-typedef struct s_camera
-{
-	t_vec3		position;
-	t_vec3		direction;
-	t_vec3		forward;
-	t_vec3		up;
-	t_vec3		right;
-	float		fov;
-}				t_camera;
 
 typedef struct s_light
 {

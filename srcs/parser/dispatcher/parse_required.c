@@ -6,10 +6,11 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 19:19:53 by jode-cas          #+#    #+#             */
-/*   Updated: 2026/04/16 18:57:52 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:10:06 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "camera.h"
 #include "parser.h"
 #include "utils.h"
 
@@ -35,6 +36,7 @@ uint8_t	parse_camera(char **values, t_scene *scene)
 	scene->camera.direction.y = ft_atof(values[5]);
 	scene->camera.direction.z = ft_atof(values[6]);
 	scene->camera.fov = ft_atof(values[7]);
+	calc_local_cam_axis(&scene->camera);
 	return (1);
 }
 

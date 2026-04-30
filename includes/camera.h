@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec.h                                              :+:      :+:    :+:   */
+/*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/15 12:08:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/27 17:05:22 by fbenini-         ###   ########.fr       */
+/*   Created: 2026/04/27 17:08:28 by fbenini-          #+#    #+#             */
+/*   Updated: 2026/04/27 17:09:07 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VEC_H
-# define VEC_H
+#ifndef CAMERA_H
+# define CAMERA_H
 
-typedef struct s_vec3
+# include "vec.h"
+
+typedef struct s_camera
 {
-	float	x;
-	float	y;
-	float	z;
-}	t_vec3;
+	t_vec3		position;
+	t_vec3		direction;
+	t_vec3		forward;
+	t_vec3		up;
+	t_vec3		right;
+	float		fov;
+}				t_camera;
 
-t_vec3	vec3_add(t_vec3 v1, t_vec3 v2);
-t_vec3	vec3_sub(t_vec3 v1, t_vec3 v2);
-t_vec3	vec3_div(t_vec3 v, float s);
-t_vec3	vec3_mul(t_vec3 v, float s);
-float	vec3_length(t_vec3 v);
-
-t_vec3	vec3_normalize(t_vec3 v);
-float	vec3_dot(t_vec3 a, t_vec3 b);
-t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
+void	calc_local_cam_axis(t_camera *cam);
 
 #endif
