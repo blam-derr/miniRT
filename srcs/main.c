@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/27 16:56:48 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/05/12 20:27:06 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ t_program	init_program(void)
 	t_mlx_args	mlx;
 
 	mlx.mlx = mlx_init();
-	mlx.window = mlx_new_window(mlx.mlx, 800, 600, "MINIRT");
+	program.window_width = 800;
+	program.window_height = 600;
+	mlx.window = mlx_new_window(mlx.mlx, program.window_width, program.window_height, "MINIRT");
 	program.img.width = 800;
 	program.img.height = 600;
 	program.img.img = mlx_new_image(mlx.mlx, program.img.width,
@@ -43,27 +45,23 @@ void	clear_program(t_program program)
 	free(program.mlx.mlx);
 }
 
-void	fill_mlx_img(t_scene scene, t_img_data *img)
+void	fill_mlx_img(t_scene scene, t_program program)
 {
 	int				i;
 	int				j;
-	t_vec3			rgb_color;
 	unsigned int	hex_color;
-	float			intensity;
+	t_img_data		*img;
 
 	i = 0;
+	img = &program.img;
 	while (i < img->width)
 	{
 		j = 0;
-		intensity = scene.ambient.intensity;
 		while (j < img->height)
 		{
-			rgb_color = apply_color_intensity(
-					intensity, scene.ambient.color);
-			hex_color = vec_to_hex(rgb_color);
+			hex_color = trace_ray(i, j, scene, program);
 			put_pixel(img, i, j, hex_color);
 			j++;
-			intensity -= (float)j / 1e6;
 		}
 		i++;
 	}
@@ -79,7 +77,7 @@ int	main(int argc, char *argv[])
 	scene = parse_scene(argv[1]);
 	program = init_program();
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
-	fill_mlx_img(scene, &program.img);
+	fill_mlx_img(scene, program);
 	mlx_put_image_to_window(program.mlx.mlx, program.mlx.window,
 		program.img.img, 0, 0);
 	mlx_key_hook(program.mlx.window, handle_keymaps, &program.mlx);

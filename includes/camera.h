@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 17:08:28 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/27 17:09:07 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/05/12 20:18:38 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_camera
 	float		fov;
 }				t_camera;
 
+double	range_map_cam_coord(double val, double min, double max);
 void	calc_local_cam_axis(t_camera *cam);
 
 #endif

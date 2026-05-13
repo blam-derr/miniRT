@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:24 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/16 20:34:25 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/05/12 20:21:49 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_program
 {
 	t_mlx_args	mlx;
 	t_img_data	img;
+	int			window_width;
+	int			window_height;
 }				t_program;
 
 void			free_int_array(int *array);
