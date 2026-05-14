@@ -25,7 +25,8 @@ t_program	init_program(void)
 	mlx.mlx = mlx_init();
 	program.window_width = 800;
 	program.window_height = 600;
-	mlx.window = mlx_new_window(mlx.mlx, program.window_width, program.window_height, "MINIRT");
+	mlx.window = mlx_new_window(mlx.mlx, program.window_width,
+			program.window_height, "MINIRT");
 	program.img.width = 800;
 	program.img.height = 600;
 	program.img.img = mlx_new_image(mlx.mlx, program.img.width,
