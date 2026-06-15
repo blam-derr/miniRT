@@ -6,16 +6,16 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/05/12 20:27:06 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/06/15 19:03:12 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mesh.h"
 #include "miniRT.h"
 #include "mlx.h"
 #include "parser.h"
 #include "scene.h"
 #include "utils.h"
-#include <stdio.h>
 
 t_program	init_program(void)
 {
@@ -23,12 +23,12 @@ t_program	init_program(void)
 	t_mlx_args	mlx;
 
 	mlx.mlx = mlx_init();
-	program.window_width = 800;
-	program.window_height = 600;
+	program.window_width = 1200;
+	program.window_height = 800;
 	mlx.window = mlx_new_window(mlx.mlx, program.window_width,
 			program.window_height, "MINIRT");
-	program.img.width = 800;
-	program.img.height = 600;
+	program.img.width = 1200;
+	program.img.height = 800;
 	program.img.img = mlx_new_image(mlx.mlx, program.img.width,
 			program.img.height);
 	program.img.addr = mlx_get_data_addr(program.img.img,
@@ -76,6 +76,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (1);
 	scene = parse_scene(argv[1]);
+	scene.sphere = generate_sphere(32, 16, 4.0f);
 	program = init_program();
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
 	fill_mlx_img(scene, program);

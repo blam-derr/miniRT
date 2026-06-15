@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 20:22:01 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/27 17:11:31 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/06/15 18:56:56 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	range_map_cam_coord(double val, double min, double max)
 	double	res;
 
 	res = 0.0;
-	mapped_val = (val - min) / (max - min);
+	mapped_val = ((val + 0.5) - min) / (max - min);
 	res = -1.0 + mapped_val * (1.0 - -1.0);
 	return (res);
 }

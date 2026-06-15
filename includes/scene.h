@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:38 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/27 17:09:18 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/06/15 17:57:39 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SCENE_H
 
 # include "libft.h"
+#include "mesh.h"
 # include "vec.h"
 # include "camera.h"
 
@@ -77,6 +78,7 @@ typedef struct s_scene
 	t_camera	camera;
 	t_light		light;
 	t_list		*objects;
+	t_mesh		sphere;
 }				t_scene;
 
 void	free_whole_scene(t_scene *scene);

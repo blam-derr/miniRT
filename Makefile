@@ -36,7 +36,8 @@ SRCS =	./srcs/main.c \
 		./srcs/parser/dispatcher/dispatcher.c \
 		./srcs/parser/dispatcher/parse_required.c \
 		./srcs/parser/dispatcher/parse_objects.c \
-		./srcs/scene/cleanup.c
+		./srcs/scene/cleanup.c \
+		./srcs/mesh/sphere.c
 
 OBJS = $(patsubst ./srcs/%.c,./objs/%.o,$(SRCS))
 
