@@ -14,7 +14,7 @@
 # define SCENE_H
 
 # include "libft.h"
-#include "mesh.h"
+# include "mesh.h"
 # include "vec.h"
 # include "camera.h"
 

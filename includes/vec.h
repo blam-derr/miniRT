@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/27 17:05:22 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/07/01 16:42:09 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef struct s_vec3
 	float	y;
 	float	z;
 }	t_vec3;
+
+t_vec3	vec3_create(float x, float y, float z);
 
 t_vec3	vec3_add(t_vec3 v1, t_vec3 v2);
 t_vec3	vec3_sub(t_vec3 v1, t_vec3 v2);

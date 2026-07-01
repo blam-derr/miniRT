@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:25:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/06/15 19:03:12 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/07/01 16:38:01 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (1);
 	scene = parse_scene(argv[1]);
-	scene.sphere = generate_sphere(32, 16, 4.0f);
+	scene.sphere = generate_sphere(8, 4, 4.0f);
 	program = init_program();
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
 	fill_mlx_img(scene, program);
