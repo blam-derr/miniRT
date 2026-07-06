@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 19:44:34 by jode-cas          #+#    #+#             */
-/*   Updated: 2026/04/16 18:57:52 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/07/06 19:59:30 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,26 @@ uint8_t	parse_sphere(char **values, t_scene *scene)
 
 uint8_t	parse_plane(char **values, t_scene *scene)
 {
-	t_generic_primitive	*plane;
+	t_mesh	*plane;
+	t_vec3	vec_color;
 
 	if (string_array_length(values) != 10
 		|| !check_array_of_numbers(values + 1))
 		return (0);
-	plane = malloc(sizeof(t_generic_primitive));
+	plane = generate_plane();
 	if (!plane)
 		return (0);
-	plane->type = PLANE;
-	plane->u_data.plane.position.x = ft_atof(values[1]);
-	plane->u_data.plane.position.y = ft_atof(values[2]);
-	plane->u_data.plane.position.z = ft_atof(values[3]);
-	plane->u_data.plane.normal.x = ft_atof(values[4]);
-	plane->u_data.plane.normal.y = ft_atof(values[5]);
-	plane->u_data.plane.normal.z = ft_atof(values[6]);
-	plane->u_data.plane.color.x = ft_atof(values[7]);
-	plane->u_data.plane.color.y = ft_atof(values[8]);
-	plane->u_data.plane.color.z = ft_atof(values[9]);
-	//ft_lstadd_back(&scene->objects, ft_lstnew(plane));
-	(void)scene;
+	plane->pos.x = ft_atof(values[1]);
+	plane->pos.y = ft_atof(values[2]);
+	plane->pos.z = ft_atof(values[3]);
+	// plane->u_data.plane.normal.x = ft_atof(values[4]);
+	// plane->u_data.plane.normal.y = ft_atof(values[5]);
+	// plane->u_data.plane.normal.z = ft_atof(values[6]);
+	vec_color.x = ft_atof(values[7]);
+	vec_color.y = ft_atof(values[8]);
+	vec_color.z = ft_atof(values[9]);
+	plane->base_color = vec_to_hex(vec_color);
+	ft_lstadd_back(&scene->objects, ft_lstnew(plane));
 	return (1);
 }
 
