@@ -12,7 +12,9 @@
 
 #include "ray.h"
 #include <math.h>
+#include <stddef.h>
 #include "camera.h"
+#include "libft.h"
 #include "mesh.h"
 #include "miniRT.h"
 #include "scene.h"
@@ -91,27 +93,48 @@ static t_vec3	get_ray_dir(
 	return (vec3_normalize(ray));
 }
 
+static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
+{
+	t_list	*lst;
+	size_t	i;
+	t_mesh	*mesh;
+	t_vec3	ray_pos_local;
+
+	lst = scene.objects;
+	while (lst)
+	{
+		mesh = (t_mesh *)lst->content;
+		ray_pos_local = vec3_sub(scene.camera.position, mesh->pos);
+		i = 0;
+		while (i < mesh->triangle_count)
+		{
+			if (intersect_triangle(
+					ray_dir,
+					ray_pos_local,
+					mesh->triangles[i],
+					hit))
+				hit->mesh_pos = mesh->pos;
+			i++;
+		}
+		lst = lst->next;
+	}
+	return (0);
+}
+
 unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
 {
-	t_vec3			ray_dir;
 	unsigned int	color;
-	size_t			i;
 	t_hit			hit;
+	t_vec3			ray_dir;
 
 	color = vec_to_hex(scene.ambient.color);
-	i = 0;
 	hit.t = INFINITY;
 	ray_dir = get_ray_dir(
 			range_map_cam_coord(x, 0, program.window_width),
 			range_map_cam_coord(y, 0, program.window_height),
 			scene.camera, program);
-	while (i < scene.sphere.triangle_count)
-	{
-		intersect_triangle(ray_dir, scene.camera.position,
-			scene.sphere.triangles[i], &hit);
-		i++;
-	}
+	intersect_scene(scene, ray_dir, &hit);
 	if (hit.t != INFINITY)
-		color = hit.color;
+		return (hit.color);
 	return (color);
 }

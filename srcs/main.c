@@ -61,7 +61,7 @@ void	fill_mlx_img(t_scene scene, t_program program)
 		while (j < img->height)
 		{
 			hex_color = trace_ray(i, j, scene, program);
-			put_pixel(img, i, j, hex_color);
+			put_pixel(img, i, img->height - j, hex_color);
 			j++;
 		}
 		i++;
@@ -76,7 +76,6 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (1);
 	scene = parse_scene(argv[1]);
-	scene.sphere = generate_sphere(8, 4, 4.0f);
 	program = init_program();
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
 	fill_mlx_img(scene, program);

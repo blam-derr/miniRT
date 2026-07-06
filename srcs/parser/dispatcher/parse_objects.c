@@ -10,26 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mesh.h"
 #include "scene.h"
 #include "utils.h"
 
 uint8_t	parse_sphere(char **values, t_scene *scene)
 {
-	t_generic_primitive	*sphere;
+	t_mesh	*sphere;
+	t_vec3	vec_color;
 
 	if (string_array_length(values) != 8 || !check_array_of_numbers(values + 1))
 		return (0);
-	sphere = malloc(sizeof(t_generic_primitive));
+	sphere = generate_sphere(32, 16, ft_atof(values[4]));
 	if (!sphere)
 		return (0);
-	sphere->type = SPHERE;
-	sphere->u_data.sphere.position.x = ft_atof(values[1]);
-	sphere->u_data.sphere.position.y = ft_atof(values[2]);
-	sphere->u_data.sphere.position.z = ft_atof(values[3]);
-	sphere->u_data.sphere.radius = ft_atof(values[4]);
-	sphere->u_data.sphere.color.x = ft_atof(values[5]);
-	sphere->u_data.sphere.color.y = ft_atof(values[6]);
-	sphere->u_data.sphere.color.z = ft_atof(values[7]);
+	sphere->pos.x = ft_atof(values[1]);
+	sphere->pos.y = ft_atof(values[2]);
+	sphere->pos.z = ft_atof(values[3]);
+	vec_color.x = ft_atof(values[5]);
+	vec_color.y = ft_atof(values[6]);
+	vec_color.z = ft_atof(values[7]);
+	sphere->base_color = vec_to_hex(vec_color);
 	ft_lstadd_back(&scene->objects, ft_lstnew(sphere));
 	return (1);
 }
@@ -54,7 +55,8 @@ uint8_t	parse_plane(char **values, t_scene *scene)
 	plane->u_data.plane.color.x = ft_atof(values[7]);
 	plane->u_data.plane.color.y = ft_atof(values[8]);
 	plane->u_data.plane.color.z = ft_atof(values[9]);
-	ft_lstadd_back(&scene->objects, ft_lstnew(plane));
+	//ft_lstadd_back(&scene->objects, ft_lstnew(plane));
+	(void)scene;
 	return (1);
 }
 
@@ -80,6 +82,7 @@ uint8_t	parse_cylinder(char **values, t_scene *scene)
 	cylinder->u_data.cylinder.color.x = ft_atof(values[9]);
 	cylinder->u_data.cylinder.color.y = ft_atof(values[10]);
 	cylinder->u_data.cylinder.color.z = ft_atof(values[11]);
-	ft_lstadd_back(&scene->objects, ft_lstnew(cylinder));
+	(void)scene;
+	//ft_lstadd_back(&scene->objects, ft_lstnew(cylinder));
 	return (1);
 }

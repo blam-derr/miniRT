@@ -13,6 +13,7 @@
 #ifndef MESH_H
 # define MESH_H
 # include "triangle.h"
+# include "vec.h"
 # include <stddef.h>
 
 typedef struct s_mesh
@@ -20,6 +21,7 @@ typedef struct s_mesh
 	size_t			triangle_count;
 	t_triangle		*triangles;
 	unsigned int	base_color;
+	t_vec3			pos;
 }					t_mesh;
 
 typedef struct s_sphere_face_data
@@ -39,6 +41,8 @@ typedef struct s_sphere_work
 	int		index;
 }	t_sphere_work;
 
-t_mesh				generate_sphere(int stacks, int slices, float radius);
+t_mesh	*generate_sphere(int stacks, int slices, float radius);
+t_mesh	*generate_plane(void);
+t_mesh	*generate_cylinder(int slices, float radius, float height);
 
 #endif

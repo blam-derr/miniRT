@@ -18,6 +18,7 @@
 typedef struct s_hit
 {
 	float			t;
+	t_vec3			mesh_pos;
 	unsigned int	color;
 }	t_hit;
 

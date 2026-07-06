@@ -11,10 +11,20 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "mesh.h"
 #include "scene.h"
 #include <stdlib.h>
 
+static void	destroy_mesh(void *mesh_ptr)
+{
+	t_mesh	*mesh;
+
+	mesh = (t_mesh *)mesh_ptr;
+	free(mesh->triangles);
+	free(mesh);
+}
+
 void	free_whole_scene(t_scene *scene)
 {
-	ft_lstclear(&(scene->objects), free);
+	ft_lstclear(&(scene->objects), destroy_mesh);
 }

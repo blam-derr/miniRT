@@ -77,17 +77,18 @@ static void	process_face(t_sphere_work *w, int i, int j)
 	w->index++;
 }
 
-t_mesh	generate_sphere(int stacks, int slices, float radius)
+t_mesh	*generate_sphere(int stacks, int slices, float radius)
 {
-	t_mesh			res;
+	t_mesh			*res;
 	t_sphere_work	w;
 	int				i;
 	int				j;
 
-	res.triangle_count = stacks * slices * 2;
-	res.triangles = malloc(sizeof(t_triangle) * res.triangle_count);
-	w.res = &res;
-	w.radius = radius;
+	res = malloc(sizeof(t_mesh));
+	res->triangle_count = stacks * slices * 2;
+	res->triangles = malloc(sizeof(t_triangle) * res->triangle_count);
+	w.res = res;
+	w.radius = radius / 2;
 	w.slices = slices;
 	w.stacks = stacks;
 	w.index = 0;
