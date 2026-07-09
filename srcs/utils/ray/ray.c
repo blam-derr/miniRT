@@ -26,20 +26,20 @@
 
 static void	set_hit_color(t_tri_params *v, t_triangle tri, t_hit *hit)
 {
-	float	w;
+	float	barycenter;
 
-	w = 1.0f - v->v - v->u;
+	barycenter = 1.0f - v->v - v->u;
 	v->normal = vec3_add(
-			vec3_mul(tri.n[0], w),
+			vec3_mul(tri.n[0], barycenter),
 			vec3_add(
 				vec3_mul(tri.n[2], v->v),
 				vec3_mul(tri.n[1], v->u)));
 	v->rgb[0] = (v->normal.x + 1.0f) * 127.5f;
 	v->rgb[1] = (v->normal.y + 1.0f) * 127.5f;
 	v->rgb[2] = (v->normal.z + 1.0f) * 127.5f;
-	if (v->t < hit->t)
+	if (v->t < hit->ray_time)
 	{
-		hit->t = v->t;
+		hit->ray_time = v->t;
 		hit->color = ((unsigned char)v->rgb[0] << 16)
 			| ((unsigned char)v->rgb[1] << 8)
 			| (unsigned char)v->rgb[2];
@@ -99,17 +99,44 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 	size_t	i;
 	t_mesh	*mesh;
 	t_vec3	ray_pos_local;
+	t_vec3	ray_dir_local;
+	t_vec3	world_up;
+	t_vec3	forward;
 
 	lst = scene.objects;
 	while (lst)
 	{
 		mesh = (t_mesh *)lst->content;
-		ray_pos_local = vec3_sub(scene.camera.position, mesh->pos);
+
+		if (vec3_length(mesh->dir) < EPSILON)
+			forward = vec3_create(0, 1, 0);
+		else
+			forward = vec3_normalize(mesh->dir);
+
+		if (fabsf(forward.y) > 0.999f)
+    		world_up = vec3_create(1, 0, 0);
+		else
+		    world_up = vec3_create(0, 1, 0);
+
+		t_vec3	right = vec3_normalize(vec3_cross(world_up, forward));
+		t_vec3	up = vec3_cross(forward, right);
+
+		t_vec3	p = vec3_sub(scene.camera.position, mesh->pos);
+
+		ray_pos_local.x = vec3_dot(p, right);
+		ray_pos_local.y = vec3_dot(p, forward);
+		ray_pos_local.z = vec3_dot(p, up);
+
+		ray_dir_local.x = vec3_dot(ray_dir, right);
+		ray_dir_local.y = vec3_dot(ray_dir, forward);
+		ray_dir_local.z = vec3_dot(ray_dir, up);
+
+		ray_dir_local = vec3_normalize(ray_dir_local);
 		i = 0;
 		while (i < mesh->triangle_count)
 		{
 			if (intersect_triangle(
-					ray_dir,
+					ray_dir_local,
 					ray_pos_local,
 					mesh->triangles[i],
 					hit))
@@ -128,13 +155,13 @@ unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
 	t_vec3			ray_dir;
 
 	color = vec_to_hex(scene.ambient.color);
-	hit.t = INFINITY;
+	hit.ray_time = INFINITY;
 	ray_dir = get_ray_dir(
 			range_map_cam_coord(x, 0, program.window_width),
 			range_map_cam_coord(y, 0, program.window_height),
 			scene.camera, program);
 	intersect_scene(scene, ray_dir, &hit);
-	if (hit.t != INFINITY)
+	if (hit.ray_time != INFINITY)
 		return (hit.color);
 	return (color);
 }

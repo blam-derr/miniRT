@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mesh.h"
 #include "miniRT.h"
 #include "mlx.h"
 #include "parser.h"
@@ -48,23 +47,23 @@ void	clear_program(t_program program)
 
 void	fill_mlx_img(t_scene scene, t_program program)
 {
-	int				i;
-	int				j;
+	int				screen_x;
+	int				screen_y;
 	unsigned int	hex_color;
 	t_img_data		*img;
 
-	i = 0;
+	screen_x = 0;
 	img = &program.img;
-	while (i < img->width)
+	while (screen_x < img->width)
 	{
-		j = 0;
-		while (j < img->height)
+		screen_y = 0;
+		while (screen_y < img->height)
 		{
-			hex_color = trace_ray(i, j, scene, program);
-			put_pixel(img, i, img->height - j, hex_color);
-			j++;
+			hex_color = trace_ray(screen_x, screen_y, scene, program);
+			put_pixel(img, screen_x, img->height - screen_y, hex_color);
+			screen_y++;
 		}
-		i++;
+		screen_x++;
 	}
 }
 

@@ -17,7 +17,7 @@
 
 typedef struct s_hit
 {
-	float			t;
+	float			ray_time;
 	t_vec3			mesh_pos;
 	unsigned int	color;
 }	t_hit;
