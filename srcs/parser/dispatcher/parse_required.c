@@ -16,12 +16,15 @@
 
 uint8_t	parse_ambient(char **values, t_scene *scene)
 {
+	float	intensity;
+
 	if (string_array_length(values) != 5 || !check_array_of_numbers(values + 1))
 		return (0);
-	scene->ambient.intensity = ft_atof(values[1]);
-	scene->ambient.color.x = ft_atof(values[2]);
-	scene->ambient.color.y = ft_atof(values[3]);
-	scene->ambient.color.z = ft_atof(values[4]);
+	intensity = ft_atof(values[1]);
+	scene->ambient.intensity = intensity;
+	scene->ambient.color.x = ft_atof(values[2]) * intensity;
+	scene->ambient.color.y = ft_atof(values[3]) * intensity;
+	scene->ambient.color.z = ft_atof(values[4]) * intensity;
 	return (1);
 }
 

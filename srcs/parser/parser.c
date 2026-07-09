@@ -24,7 +24,7 @@ uint8_t	parse_line(char *line, t_scene *scene)
 {
 	char			**splitted;
 	t_dispatched_fn	fn;
-	int				res;
+	int				is_ok;
 
 	(void)scene;
 	if (is_string_whitespace(line))
@@ -36,9 +36,9 @@ uint8_t	parse_line(char *line, t_scene *scene)
 		free_string_array(splitted);
 		return (0);
 	}
-	res = fn(splitted, scene);
+	is_ok = fn(splitted, scene);
 	free_string_array(splitted);
-	return (res);
+	return (is_ok);
 }
 
 void	graceful_exit(char *line, int fd, t_scene *scene)
