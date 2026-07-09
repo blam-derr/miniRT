@@ -40,7 +40,8 @@ SRCS =	./srcs/main.c \
 		./srcs/scene/cleanup.c \
 		./srcs/mesh/sphere.c \
 		./srcs/mesh/plane.c \
-		./srcs/mesh/cylinder.c
+		./srcs/mesh/cylinder.c \
+		./srcs/mesh/cylinder_caps.c
 
 OBJS = $(patsubst ./srcs/%.c,./objs/%.o,$(SRCS))
 

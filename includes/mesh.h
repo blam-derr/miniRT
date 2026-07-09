@@ -22,6 +22,7 @@ typedef struct s_mesh
 	t_triangle		*triangles;
 	unsigned int	base_color;
 	t_vec3			pos;
+	t_vec3			dir;
 }					t_mesh;
 
 typedef struct s_sphere_face_data
@@ -40,6 +41,15 @@ typedef struct s_sphere_work
 	int		stacks;
 	int		index;
 }	t_sphere_work;
+
+typedef struct s_cyl
+{
+	int		slices;
+	float	radius;
+	float	height;
+}	t_cyl;
+
+void	generate_cylinder_caps(t_mesh *mesh, size_t *index, t_cyl cyl);
 
 t_mesh	*generate_sphere(int stacks, int slices, float radius);
 t_mesh	*generate_plane(void);
