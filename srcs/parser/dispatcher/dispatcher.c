@@ -10,14 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
-#include "scene.h"
 #include "parser.h"
-#include "utils.h"
-#include "vec.h"
 #include <stdint.h>
 
-t_dispatched_fn	dispatch(char **values, t_scene *scene)
+t_dispatched_fn	dispatch(char **values)
 {
 	int							i;
 	int							len;
@@ -31,7 +27,6 @@ t_dispatched_fn	dispatch(char **values, t_scene *scene)
 	};
 
 	i = 0;
-	(void)scene;
 	if (!values || !values[0])
 		return (NULL);
 	len = sizeof(dict) / sizeof(t_dict_dispatcher);

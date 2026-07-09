@@ -33,6 +33,6 @@ typedef struct s_dict_dispatcher
 	t_dispatched_fn	function;
 }					t_dict_dispatcher;
 
-t_dispatched_fn		dispatch(char **values, t_scene *scene);
+t_dispatched_fn		dispatch(char **values);
 
 #endif

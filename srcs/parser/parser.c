@@ -30,7 +30,7 @@ uint8_t	parse_line(char *line, t_scene *scene)
 	if (is_string_whitespace(line))
 		return (1);
 	splitted = ft_split_charset(line, " \t\n\v\f\r,");
-	fn = dispatch(splitted, scene);
+	fn = dispatch(splitted);
 	if (!fn)
 	{
 		free_string_array(splitted);
