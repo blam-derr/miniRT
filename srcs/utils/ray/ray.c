@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 19:50:37 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/07/01 16:28:58 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/07/22 09:59:01 by jode-cas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
-#include <math.h>
-#include <stddef.h>
 #include "camera.h"
 #include "libft.h"
 #include "mesh.h"
 #include "miniRT.h"
+#include "ray.h"
 #include "scene.h"
+#include "triangle.h"
 #include "utils.h"
 #include "vec.h"
-#include "triangle.h"
+#include <math.h>
+#include <stddef.h>
 
 #define EPSILON 1e-6
 
@@ -29,27 +29,19 @@ static void	set_hit_color(t_tri_params *v, t_triangle tri, t_hit *hit)
 	float	barycenter;
 
 	barycenter = 1.0f - v->v - v->u;
-	v->normal = vec3_add(
-			vec3_mul(tri.n[0], barycenter),
-			vec3_add(
-				vec3_mul(tri.n[2], v->v),
-				vec3_mul(tri.n[1], v->u)));
+	v->normal = vec3_add(vec3_mul(tri.n[0], barycenter),
+			vec3_add(vec3_mul(tri.n[2], v->v), vec3_mul(tri.n[1], v->u)));
 	v->rgb[0] = (v->normal.x + 1.0f) * 127.5f;
 	v->rgb[1] = (v->normal.y + 1.0f) * 127.5f;
 	v->rgb[2] = (v->normal.z + 1.0f) * 127.5f;
 	if (v->t < hit->ray_time)
 	{
 		hit->ray_time = v->t;
-		hit->color = ((unsigned char)v->rgb[0] << 16)
-			| ((unsigned char)v->rgb[1] << 8)
-			| (unsigned char)v->rgb[2];
+		hit->color = ((unsigned char)v->rgb[0] << 16) | ((unsigned char)v->rgb[1] << 8) | (unsigned char)v->rgb[2];
 	}
 }
 
-static char	intersect_triangle(
-		t_vec3 ray_dir,
-		t_vec3 ray_pos,
-		t_triangle tri,
+static char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 		t_hit *hit)
 {
 	t_tri_params	v;
@@ -76,8 +68,8 @@ static char	intersect_triangle(
 	return (1);
 }
 
-static t_vec3	get_ray_dir(
-		float x, float y, t_camera camera, t_program program)
+static t_vec3	get_ray_dir(float x, float y, t_camera camera,
+		t_program program)
 {
 	float	aspect;
 	float	scale;
@@ -85,11 +77,8 @@ static t_vec3	get_ray_dir(
 
 	aspect = (float)program.window_width / (float)program.window_height;
 	scale = tanf(camera.fov * 0.5f * (M_PI / 180.0f));
-	ray = vec3_add(
-			camera.forward,
-			vec3_add(
-				vec3_mul(camera.right, x * aspect * scale),
-				vec3_mul(camera.up, y * scale)));
+	ray = vec3_add(camera.forward, vec3_add(vec3_mul(camera.right, x * aspect
+					* scale), vec3_mul(camera.up, y * scale)));
 	return (vec3_normalize(ray));
 }
 
@@ -102,44 +91,37 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 	t_vec3	ray_dir_local;
 	t_vec3	world_up;
 	t_vec3	forward;
+	t_vec3	right;
+	t_vec3	up;
+	t_vec3	p;
 
 	lst = scene.objects;
 	while (lst)
 	{
 		mesh = (t_mesh *)lst->content;
-
 		if (vec3_length(mesh->dir) < EPSILON)
 			forward = vec3_create(0, 1, 0);
 		else
 			forward = vec3_normalize(mesh->dir);
-
 		if (fabsf(forward.y) > 0.999f)
-    		world_up = vec3_create(1, 0, 0);
+			world_up = vec3_create(1, 0, 0);
 		else
-		    world_up = vec3_create(0, 1, 0);
-
-		t_vec3	right = vec3_normalize(vec3_cross(world_up, forward));
-		t_vec3	up = vec3_cross(forward, right);
-
-		t_vec3	p = vec3_sub(scene.camera.position, mesh->pos);
-
+			world_up = vec3_create(0, 1, 0);
+		right = vec3_normalize(vec3_cross(world_up, forward));
+		up = vec3_cross(forward, right);
+		p = vec3_sub(scene.camera.position, mesh->pos);
 		ray_pos_local.x = vec3_dot(p, right);
 		ray_pos_local.y = vec3_dot(p, forward);
 		ray_pos_local.z = vec3_dot(p, up);
-
 		ray_dir_local.x = vec3_dot(ray_dir, right);
 		ray_dir_local.y = vec3_dot(ray_dir, forward);
 		ray_dir_local.z = vec3_dot(ray_dir, up);
-
 		ray_dir_local = vec3_normalize(ray_dir_local);
 		i = 0;
 		while (i < mesh->triangle_count)
 		{
-			if (intersect_triangle(
-					ray_dir_local,
-					ray_pos_local,
-					mesh->triangles[i],
-					hit))
+			if (intersect_triangle(ray_dir_local, ray_pos_local,
+					mesh->triangles[i], hit))
 				hit->mesh_pos = mesh->pos;
 			i++;
 		}
@@ -156,10 +138,9 @@ unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
 
 	color = vec_to_hex(scene.ambient.color);
 	hit.ray_time = INFINITY;
-	ray_dir = get_ray_dir(
-			range_map_cam_coord(x, 0, program.window_width),
-			range_map_cam_coord(y, 0, program.window_height),
-			scene.camera, program);
+	ray_dir = get_ray_dir(range_map_cam_coord(x, 0, program.window_width),
+			range_map_cam_coord(y, 0, program.window_height), scene.camera,
+			program);
 	intersect_scene(scene, ray_dir, &hit);
 	if (hit.ray_time != INFINITY)
 		return (hit.color);
