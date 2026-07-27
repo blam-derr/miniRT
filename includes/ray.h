@@ -14,12 +14,18 @@
 # define RAY_H
 
 # include "vec.h"
+# include "mesh.h"
 
 typedef struct s_hit
 {
-	float			ray_time;
-	t_vec3			mesh_pos;
-	unsigned int	color;
+	float	ray_time;
+	t_vec3	point_local;
+	t_vec3	normal_local;
+	t_mesh	*mesh;
+	t_vec3	basis_right;
+	t_vec3	basis_forward;
+	t_vec3	basis_up;
+	char	hit_something;
 }	t_hit;
 
 typedef struct s_tri_params
@@ -35,7 +41,6 @@ typedef struct s_tri_params
 	float	v;
 	float	t;
 	t_vec3	normal;
-	float	rgb[3];
 }	t_tri_params;
 
 #endif

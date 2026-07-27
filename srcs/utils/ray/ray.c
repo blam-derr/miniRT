@@ -24,20 +24,21 @@
 
 #define EPSILON 1e-6
 
-static void	set_hit_color(t_tri_params *v, t_triangle tri, t_hit *hit)
+static void	set_hit_geometry(t_tri_params *v, t_triangle tri, t_hit *hit)
 {
 	float	barycenter;
 
 	barycenter = 1.0f - v->v - v->u;
 	v->normal = vec3_add(vec3_mul(tri.n[0], barycenter),
 			vec3_add(vec3_mul(tri.n[2], v->v), vec3_mul(tri.n[1], v->u)));
-	v->rgb[0] = (v->normal.x + 1.0f) * 127.5f;
-	v->rgb[1] = (v->normal.y + 1.0f) * 127.5f;
-	v->rgb[2] = (v->normal.z + 1.0f) * 127.5f;
 	if (v->t < hit->ray_time)
 	{
 		hit->ray_time = v->t;
-		hit->color = ((unsigned char)v->rgb[0] << 16) | ((unsigned char)v->rgb[1] << 8) | (unsigned char)v->rgb[2];
+		hit->point_local = vec3_add(tri.v[0],
+				vec3_add(vec3_mul(v->edge1, v->u),
+					vec3_mul(v->edge2, v->v)));
+		hit->normal_local = v->normal;
+		hit->hit_something = 1;
 	}
 }
 
@@ -64,7 +65,7 @@ static char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 	v.t = vec3_dot(v.edge2, v.qvec) * v.inv_det;
 	if (v.t < EPSILON)
 		return (0);
-	set_hit_color(&v, tri, hit);
+	set_hit_geometry(&v, tri, hit);
 	return (1);
 }
 
@@ -94,6 +95,7 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 	t_vec3	right;
 	t_vec3	up;
 	t_vec3	p;
+	float	prev_hit;
 
 	lst = scene.objects;
 	while (lst)
@@ -118,12 +120,19 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 		ray_dir_local.z = vec3_dot(ray_dir, up);
 		ray_dir_local = vec3_normalize(ray_dir_local);
 		i = 0;
+		prev_hit = hit->ray_time;
 		while (i < mesh->triangle_count)
 		{
-			if (intersect_triangle(ray_dir_local, ray_pos_local,
-					mesh->triangles[i], hit))
-				hit->mesh_pos = mesh->pos;
+			intersect_triangle(ray_dir_local, ray_pos_local,
+				mesh->triangles[i], hit);
 			i++;
+		}
+		if (hit->ray_time < prev_hit)
+		{
+			hit->basis_forward = forward;
+			hit->basis_right = right;
+			hit->basis_up = up;
+			hit->mesh = mesh;
 		}
 		lst = lst->next;
 	}
@@ -132,17 +141,16 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 
 unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
 {
-	unsigned int	color;
-	t_hit			hit;
-	t_vec3			ray_dir;
+	t_hit	hit;
+	t_vec3	ray_dir;
 
-	color = vec_to_hex(scene.ambient.color);
 	hit.ray_time = INFINITY;
+	hit.hit_something = 0;
 	ray_dir = get_ray_dir(range_map_cam_coord(x, 0, program.window_width),
 			range_map_cam_coord(y, 0, program.window_height), scene.camera,
 			program);
 	intersect_scene(scene, ray_dir, &hit);
-	if (hit.ray_time != INFINITY)
-		return (hit.color);
-	return (color);
+	if (hit.hit_something)
+		return (0x808080);
+	return (vec_to_hex(scene.ambient.color));
 }
