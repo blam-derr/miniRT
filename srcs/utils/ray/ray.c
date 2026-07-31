@@ -24,20 +24,20 @@
 
 #define EPSILON 1e-6
 
-static void	set_hit_geometry(t_tri_params *v, t_triangle tri, t_hit *hit)
+static void	set_hit_geometry(t_tri_params v, t_triangle tri, t_hit *hit)
 {
 	float	barycenter;
 
-	barycenter = 1.0f - v->v - v->u;
-	v->normal = vec3_add(vec3_mul(tri.n[0], barycenter),
-			vec3_add(vec3_mul(tri.n[2], v->v), vec3_mul(tri.n[1], v->u)));
-	if (v->t < hit->ray_time)
+	if (v.t < hit->ray_time)
 	{
-		hit->ray_time = v->t;
+		barycenter = 1.0f - v.v - v.u;
+		v.normal = vec3_add(vec3_mul(tri.n[0], barycenter),
+				vec3_add(vec3_mul(tri.n[2], v.v), vec3_mul(tri.n[1], v.u)));
+		hit->ray_time = v.t;
 		hit->point_local = vec3_add(tri.v[0],
-				vec3_add(vec3_mul(v->edge1, v->u),
-					vec3_mul(v->edge2, v->v)));
-		hit->normal_local = v->normal;
+				vec3_add(vec3_mul(v.edge1, v.u),
+					vec3_mul(v.edge2, v.v)));
+		hit->normal_local = v.normal;
 		hit->hit_something = 1;
 	}
 }
@@ -65,7 +65,7 @@ static char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 	v.t = vec3_dot(v.edge2, v.qvec) * v.inv_det;
 	if (v.t < EPSILON)
 		return (0);
-	set_hit_geometry(&v, tri, hit);
+	set_hit_geometry(v, tri, hit);
 	return (1);
 }
 
