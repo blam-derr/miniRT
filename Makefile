@@ -23,6 +23,7 @@ SRCS =	./srcs/main.c \
 		./srcs/camera/camera.c \
 		./srcs/utils/ft_atof.c \
 		./srcs/utils/ray/ray.c \
+		./srcs/utils/ray/to_world.c \
 		./srcs/utils/arrays/int_array_utils.c \
 		./srcs/utils/arrays/string_array_utils.c \
 		./srcs/utils/arrays/ft_split_charset.c \

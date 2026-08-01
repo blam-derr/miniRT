@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:14 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/07/01 16:42:09 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/07/31 21:14:52 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ float	vec3_length(t_vec3 v);
 t_vec3	vec3_normalize(t_vec3 v);
 float	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
+t_vec3	vec3_add_by_scalar(t_vec3 a, float s);
 
 #endif

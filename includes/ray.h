@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 16:20:23 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/07/01 16:21:08 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/07/31 21:11:32 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,8 @@ typedef struct s_tri_params
 	float	t;
 	t_vec3	normal;
 }	t_tri_params;
+
+t_vec3	local_to_world_normal(t_vec3 normal, t_hit *hit);
+t_vec3	local_to_world_point(t_vec3 point, t_hit *hit);
 
 #endif
