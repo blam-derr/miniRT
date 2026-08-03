@@ -19,9 +19,6 @@
 #include "triangle.h"
 #include "utils.h"
 #include "vec.h"
-#include <math.h>
-#include <stddef.h>
-#include <stdio.h>
 
 #define EPSILON 1e-6
 
@@ -68,20 +65,6 @@ static char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 		return (0);
 	set_hit_geometry(v, tri, hit);
 	return (1);
-}
-
-static t_vec3	get_ray_dir(float x, float y, t_camera camera,
-		t_program program)
-{
-	float	aspect;
-	float	scale;
-	t_vec3	ray;
-
-	aspect = (float)program.window_width / (float)program.window_height;
-	scale = tanf(camera.fov * 0.5f * (M_PI / 180.0f));
-	ray = vec3_add(camera.forward, vec3_add(vec3_mul(camera.right, x * aspect
-					* scale), vec3_mul(camera.up, y * scale)));
-	return (vec3_normalize(ray));
 }
 
 static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)

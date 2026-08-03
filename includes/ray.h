@@ -13,6 +13,9 @@
 #ifndef RAY_H
 # define RAY_H
 
+# include <stdio.h>
+# include <stddef.h>
+# include <math.h>
 # include "vec.h"
 # include "mesh.h"
 
