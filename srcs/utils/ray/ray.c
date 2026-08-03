@@ -86,7 +86,7 @@ static t_vec3	get_ray_dir(float x, float y, t_camera camera,
 
 static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 {
-	t_list	*lst;
+	t_list	*objs_in_scene;
 	size_t	i;
 	t_mesh	*mesh;
 	t_vec3	ray_pos_local;
@@ -95,13 +95,13 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 	t_vec3	forward;
 	t_vec3	right;
 	t_vec3	up;
-	t_vec3	p;
+	t_vec3	local_mesh_position;
 	float	prev_hit;
 
-	lst = scene.objects;
-	while (lst)
+	objs_in_scene = scene.objects;
+	while (objs_in_scene)
 	{
-		mesh = (t_mesh *)lst->content;
+		mesh = (t_mesh *)objs_in_scene->content;
 		if (vec3_length(mesh->dir) < EPSILON)
 			forward = vec3_create(0, 1, 0);
 		else
@@ -112,10 +112,10 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 			world_up = vec3_create(0, 1, 0);
 		right = vec3_normalize(vec3_cross(world_up, forward));
 		up = vec3_cross(forward, right);
-		p = vec3_sub(scene.camera.position, mesh->pos);
-		ray_pos_local.x = vec3_dot(p, right);
-		ray_pos_local.y = vec3_dot(p, forward);
-		ray_pos_local.z = vec3_dot(p, up);
+		local_mesh_position = vec3_sub(scene.camera.position, mesh->pos);
+		ray_pos_local.x = vec3_dot(local_mesh_position, right);
+		ray_pos_local.y = vec3_dot(local_mesh_position, forward);
+		ray_pos_local.z = vec3_dot(local_mesh_position, up);
 		ray_dir_local.x = vec3_dot(ray_dir, right);
 		ray_dir_local.y = vec3_dot(ray_dir, forward);
 		ray_dir_local.z = vec3_dot(ray_dir, up);
@@ -135,7 +135,7 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 			hit->basis_up = up;
 			hit->mesh = mesh;
 		}
-		lst = lst->next;
+		objs_in_scene = objs_in_scene->next;
 	}
 	return (0);
 }
