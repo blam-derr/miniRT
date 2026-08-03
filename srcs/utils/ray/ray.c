@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 19:50:37 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/07/22 09:59:01 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/07/31 21:32:36 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "vec.h"
 #include <math.h>
 #include <stddef.h>
+#include <stdio.h>
 
 #define EPSILON 1e-6
 
@@ -31,8 +32,8 @@ static void	set_hit_geometry(t_tri_params v, t_triangle tri, t_hit *hit)
 	if (v.t < hit->ray_time)
 	{
 		barycenter = 1.0f - v.v - v.u;
-		v.normal = vec3_add(vec3_mul(tri.n[0], barycenter),
-				vec3_add(vec3_mul(tri.n[2], v.v), vec3_mul(tri.n[1], v.u)));
+		v.normal = vec3_normalize(vec3_add(vec3_mul(tri.n[0], barycenter),
+				vec3_add(vec3_mul(tri.n[2], v.v), vec3_mul(tri.n[1], v.u))));
 		hit->ray_time = v.t;
 		hit->point_local = vec3_add(tri.v[0],
 				vec3_add(vec3_mul(v.edge1, v.u),
@@ -151,6 +152,12 @@ unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
 			program);
 	intersect_scene(scene, ray_dir, &hit);
 	if (hit.hit_something)
-		return (0x808080);
+	{
+		t_vec3	world_normal = local_to_world_normal(hit.normal_local, &hit);
+		t_vec3 color_res = vec3_mul(world_normal, 0.5);
+		color_res = vec3_add_by_scalar(color_res, 0.5);
+		color_res = vec3_mul(color_res, 255.0f);
+		return (vec_to_hex(color_res));
+	}
 	return (vec_to_hex(scene.ambient.color));
 }
