@@ -16,11 +16,19 @@
 # include "vec.h"
 # include <stddef.h>
 
+typedef struct s_material
+{
+	t_vec3		color;
+	float		diffuse_coefficient;
+	float		specular_coefficient;
+	float		shininess;
+}	t_material;
+
 typedef struct s_mesh
 {
 	size_t			triangle_count;
 	t_triangle		*triangles;
-	unsigned int	base_color;
+	t_material		material;
 	t_vec3			pos;
 	t_vec3			dir;
 }					t_mesh;

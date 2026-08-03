@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdint.h>
+#include "mesh.h"
 #include "vec.h"
 
 static int	clamp_color(float c)
@@ -40,4 +41,16 @@ t_vec3	apply_color_intensity(float intensity, t_vec3 color)
 
 	res = vec3_mul(color, intensity);
 	return (res);
+}
+
+t_material	new_material(t_vec3 color, float diffuse,
+						float specular, float shininess)
+{
+	t_material	material;
+
+	material.color = color;
+	material.diffuse_coefficient = diffuse;
+	material.specular_coefficient = specular;
+	material.shininess = shininess;
+	return (material);
 }

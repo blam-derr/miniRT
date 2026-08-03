@@ -33,4 +33,7 @@ t_vec3			apply_color_intensity(float intensity, t_vec3 color);
 
 unsigned int	trace_ray(int x, int y, t_scene scene, t_program program);
 
+t_material		new_material(t_vec3 color, float diffuse,
+					float specular, float shininess);
+
 #endif

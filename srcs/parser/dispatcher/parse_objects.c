@@ -32,7 +32,7 @@ uint8_t	parse_sphere(char **values, t_scene *scene)
 	vec_color.x = ft_atof(values[5]);
 	vec_color.y = ft_atof(values[6]);
 	vec_color.z = ft_atof(values[7]);
-	sphere->base_color = vec_to_hex(vec_color);
+	sphere->material = new_material(vec_color, 0.8, 0.3, 32);
 	ft_lstadd_back(&scene->objects, ft_lstnew(sphere));
 	return (1);
 }
@@ -57,7 +57,7 @@ uint8_t	parse_plane(char **values, t_scene *scene)
 	vec_color.x = ft_atof(values[7]);
 	vec_color.y = ft_atof(values[8]);
 	vec_color.z = ft_atof(values[9]);
-	plane->base_color = vec_to_hex(vec_color);
+	plane->material = new_material(vec_color, 0.8, 0.3, 32);
 	ft_lstadd_back(&scene->objects, ft_lstnew(plane));
 	return (1);
 }
@@ -82,7 +82,7 @@ uint8_t	parse_cylinder(char **values, t_scene *scene)
 	vec_color.x = ft_atof(values[9]);
 	vec_color.y = ft_atof(values[10]);
 	vec_color.z = ft_atof(values[11]);
-	cylinder->base_color = vec_to_hex(vec_color);
+	cylinder->material = new_material(vec_color, 0.8, 0.3, 32);
 	ft_lstadd_back(&scene->objects, ft_lstnew(cylinder));
 	return (1);
 }
