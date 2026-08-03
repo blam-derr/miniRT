@@ -22,8 +22,6 @@ SRCS =	./srcs/main.c \
 		./srcs/hooks.c \
 		./srcs/camera/camera.c \
 		./srcs/utils/ft_atof.c \
-		./srcs/utils/ray/ray.c \
-		./srcs/utils/ray/to_world.c \
 		./srcs/utils/arrays/int_array_utils.c \
 		./srcs/utils/arrays/string_array_utils.c \
 		./srcs/utils/arrays/ft_split_charset.c \
@@ -33,12 +31,14 @@ SRCS =	./srcs/main.c \
 		./srcs/utils/algebra/base_vec3.c \
 		./srcs/utils/algebra/adv_vec3.c \
 		./srcs/utils/algebra/create_vec3.c \
+		./srcs/utils/ray_utils.c \
 		./srcs/parser/parser.c \
 		./srcs/parser/file_validation.c \
 		./srcs/parser/dispatcher/dispatcher.c \
 		./srcs/parser/dispatcher/parse_required.c \
 		./srcs/parser/dispatcher/parse_objects.c \
 		./srcs/scene/cleanup.c \
+		./srcs/scene/ray.c \
 		./srcs/mesh/sphere.c \
 		./srcs/mesh/plane.c \
 		./srcs/mesh/cylinder.c \

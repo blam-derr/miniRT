@@ -15,10 +15,6 @@
 #include "parser.h"
 #include "scene.h"
 #include "utils.h"
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <unistd.h>
 
 uint8_t	parse_line(char *line, t_scene *scene)
 {

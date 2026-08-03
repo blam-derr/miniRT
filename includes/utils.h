@@ -31,6 +31,9 @@ void			put_pixel(t_img_data *data, int x, int y, unsigned int color);
 uint32_t		vec_to_hex(t_vec3 color);
 t_vec3			apply_color_intensity(float intensity, t_vec3 color);
 
+t_vec3			get_ray_dir(float x, float y, t_camera camera,
+					t_program program);
+
 unsigned int	trace_ray(int x, int y, t_scene scene, t_program program);
 
 t_material		new_material(t_vec3 color, float diffuse,

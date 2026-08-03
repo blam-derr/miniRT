@@ -12,6 +12,8 @@
 
 #include "ray.h"
 #include "vec.h"
+#include "camera.h"
+#include "miniRT.h"
 
 t_vec3	local_to_world_point(t_vec3 point, t_hit *hit)
 {
@@ -43,4 +45,18 @@ t_vec3	local_to_world_normal(t_vec3 normal, t_hit *hit)
 		+ (normal.y * hit->basis_up.z)
 		+ (normal.z * hit->basis_forward.z);
 	return (world_normal);
+}
+
+t_vec3	get_ray_dir(float x, float y, t_camera camera,
+		t_program program)
+{
+	float	aspect;
+	float	scale;
+	t_vec3	ray;
+
+	aspect = (float)program.window_width / (float)program.window_height;
+	scale = tanf(camera.fov * 0.5f * (M_PI / 180.0f));
+	ray = vec3_add(camera.forward, vec3_add(vec3_mul(camera.right, x * aspect
+					* scale), vec3_mul(camera.up, y * scale)));
+	return (vec3_normalize(ray));
 }

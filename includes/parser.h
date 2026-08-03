@@ -15,6 +15,9 @@
 
 # include "scene.h"
 # include <stdint.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <fcntl.h>
 
 t_scene				parse_scene(char *filename);
 uint8_t				parse_ambient(char **values, t_scene *scene);
