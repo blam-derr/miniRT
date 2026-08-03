@@ -31,20 +31,24 @@ typedef struct s_hit
 	char	hit_something;
 }	t_hit;
 
-typedef struct s_tri_params
+typedef struct s_barycenter
+{
+	float u;
+	float v;
+} t_barycenter;
+
+typedef struct s_moller_trumbore_params
 {
 	t_vec3	edge1;
 	t_vec3	edge2;
-	t_vec3	pvec;
-	t_vec3	tvec;
-	t_vec3	qvec;
+	t_vec3	raydir_cross_edge2;
+	t_vec3	ray_length;
+	t_vec3	raylength_cross_edge1;
 	float	det;
 	float	inv_det;
-	float	u;
-	float	v;
-	float	t;
-	t_vec3	normal;
-}	t_tri_params;
+	t_barycenter bary_coords;
+	float ray_time;
+}	t_moller_trumbore_params;
 
 t_vec3	local_to_world_normal(t_vec3 normal, t_hit *hit);
 t_vec3	local_to_world_point(t_vec3 point, t_hit *hit);

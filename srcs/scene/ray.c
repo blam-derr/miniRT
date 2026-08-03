@@ -22,20 +22,20 @@
 
 #define EPSILON 1e-6
 
-static void	set_hit_geometry(t_tri_params v, t_triangle tri, t_hit *hit)
+static void	set_hit_geometry(t_moller_trumbore_params calc, t_triangle tri, t_hit *hit)
 {
 	float	barycenter;
 
-	if (v.t < hit->ray_time)
+	if (calc.ray_time < hit->ray_time)
 	{
-		barycenter = 1.0f - v.v - v.u;
-		v.normal = vec3_normalize(vec3_add(vec3_mul(tri.n[0], barycenter),
-				vec3_add(vec3_mul(tri.n[2], v.v), vec3_mul(tri.n[1], v.u))));
-		hit->ray_time = v.t;
+		barycenter = 1.0f - calc.bary_coords.v - calc.bary_coords.u;
+		calc.raydir_cross_edge2 = vec3_normalize(vec3_add(vec3_mul(tri.n[0], barycenter),
+				vec3_add(vec3_mul(tri.n[2], calc.bary_coords.v), vec3_mul(tri.n[1], calc.bary_coords.u))));
+		hit->ray_time = calc.ray_time;
 		hit->point_local = vec3_add(tri.v[0],
-				vec3_add(vec3_mul(v.edge1, v.u),
-					vec3_mul(v.edge2, v.v)));
-		hit->normal_local = v.normal;
+				vec3_add(vec3_mul(calc.edge1, calc.bary_coords.u),
+					vec3_mul(calc.edge2, calc.bary_coords.v)));
+		hit->normal_local = calc.raydir_cross_edge2;
 		hit->hit_something = 1;
 	}
 }
@@ -43,27 +43,27 @@ static void	set_hit_geometry(t_tri_params v, t_triangle tri, t_hit *hit)
 static char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 		t_hit *hit)
 {
-	t_tri_params	v;
+	t_moller_trumbore_params	calc;
 
-	v.edge1 = vec3_sub(tri.v[1], tri.v[0]);
-	v.edge2 = vec3_sub(tri.v[2], tri.v[0]);
-	v.pvec = vec3_cross(ray_dir, v.edge2);
-	v.det = vec3_dot(v.edge1, v.pvec);
-	if (fabsf(v.det) < EPSILON)
+	calc.edge1 = vec3_sub(tri.v[1], tri.v[0]);
+	calc.edge2 = vec3_sub(tri.v[2], tri.v[0]);
+	calc.raydir_cross_edge2 = vec3_cross(ray_dir, calc.edge2);
+	calc.det = vec3_dot(calc.edge1, calc.raydir_cross_edge2);
+	if (fabsf(calc.det) < EPSILON)
 		return (0);
-	v.inv_det = 1.0f / v.det;
-	v.tvec = vec3_sub(ray_pos, tri.v[0]);
-	v.u = vec3_dot(v.tvec, v.pvec) * v.inv_det;
-	if (v.u < 0.0f || v.u > 1.0f)
+	calc.inv_det = 1.0f / calc.det;
+	calc.ray_length = vec3_sub(ray_pos, tri.v[0]);
+	calc.bary_coords.u = vec3_dot(calc.ray_length, calc.raydir_cross_edge2) * calc.inv_det;
+	if (calc.bary_coords.u < 0.0f || calc.bary_coords.u > 1.0f)
 		return (0);
-	v.qvec = vec3_cross(v.tvec, v.edge1);
-	v.v = vec3_dot(ray_dir, v.qvec) * v.inv_det;
-	if (v.v < 0.0f || v.u + v.v > 1.0f)
+	calc.raylength_cross_edge1 = vec3_cross(calc.ray_length, calc.edge1);
+	calc.bary_coords.v = vec3_dot(ray_dir, calc.raylength_cross_edge1) * calc.inv_det;
+	if (calc.bary_coords.v < 0.0f || calc.bary_coords.u + calc.bary_coords.v > 1.0f)
 		return (0);
-	v.t = vec3_dot(v.edge2, v.qvec) * v.inv_det;
-	if (v.t < EPSILON)
+	calc.ray_time = vec3_dot(calc.edge2, calc.raylength_cross_edge1) * calc.inv_det;
+	if (calc.ray_time < EPSILON)
 		return (0);
-	set_hit_geometry(v, tri, hit);
+	set_hit_geometry(calc, tri, hit);
 	return (1);
 }
 
