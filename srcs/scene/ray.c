@@ -22,19 +22,22 @@
 
 #define EPSILON 1e-6
 
-static void	set_hit_geometry(t_moller_trumbore_params calc, t_triangle tri, t_hit *hit)
+static void	set_hit_geometry(t_moller_trumbore_params calc, t_triangle tri,
+		t_hit *hit)
 {
 	float	barycenter;
 
 	if (calc.ray_time < hit->ray_time)
 	{
 		barycenter = 1.0f - calc.bary_coords.v - calc.bary_coords.u;
-		calc.raydir_cross_edge2 = vec3_normalize(vec3_add(vec3_mul(tri.n[0], barycenter),
-				vec3_add(vec3_mul(tri.n[2], calc.bary_coords.v), vec3_mul(tri.n[1], calc.bary_coords.u))));
+		calc.raydir_cross_edge2 = vec3_normalize(vec3_add(vec3_mul(tri.n[0],
+						barycenter), vec3_add(vec3_mul(tri.n[2],
+							calc.bary_coords.v), vec3_mul(tri.n[1],
+							calc.bary_coords.u))));
 		hit->ray_time = calc.ray_time;
-		hit->point_local = vec3_add(tri.v[0],
-				vec3_add(vec3_mul(calc.edge1, calc.bary_coords.u),
-					vec3_mul(calc.edge2, calc.bary_coords.v)));
+		hit->point_local = vec3_add(tri.v[0], vec3_add(vec3_mul(calc.edge1,
+						calc.bary_coords.u), vec3_mul(calc.edge2,
+						calc.bary_coords.v)));
 		hit->normal_local = calc.raydir_cross_edge2;
 		hit->hit_something = 1;
 	}
@@ -53,14 +56,18 @@ static char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 		return (0);
 	calc.inv_det = 1.0f / calc.det;
 	calc.ray_length = vec3_sub(ray_pos, tri.v[0]);
-	calc.bary_coords.u = vec3_dot(calc.ray_length, calc.raydir_cross_edge2) * calc.inv_det;
+	calc.bary_coords.u = vec3_dot(calc.ray_length, calc.raydir_cross_edge2)
+		* calc.inv_det;
 	if (calc.bary_coords.u < 0.0f || calc.bary_coords.u > 1.0f)
 		return (0);
 	calc.raylength_cross_edge1 = vec3_cross(calc.ray_length, calc.edge1);
-	calc.bary_coords.v = vec3_dot(ray_dir, calc.raylength_cross_edge1) * calc.inv_det;
-	if (calc.bary_coords.v < 0.0f || calc.bary_coords.u + calc.bary_coords.v > 1.0f)
+	calc.bary_coords.v = vec3_dot(ray_dir, calc.raylength_cross_edge1)
+		* calc.inv_det;
+	if (calc.bary_coords.v < 0.0f || calc.bary_coords.u
+		+ calc.bary_coords.v > 1.0f)
 		return (0);
-	calc.ray_time = vec3_dot(calc.edge2, calc.raylength_cross_edge1) * calc.inv_det;
+	calc.ray_time = vec3_dot(calc.edge2, calc.raylength_cross_edge1)
+		* calc.inv_det;
 	if (calc.ray_time < EPSILON)
 		return (0);
 	set_hit_geometry(calc, tri, hit);
@@ -107,8 +114,8 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 		prev_hit = hit->ray_time;
 		while (i < mesh->triangle_count)
 		{
-			intersect_triangle(ray_dir_local, ray_pos_local,
-				mesh->triangles[i], hit);
+			intersect_triangle(ray_dir_local, ray_pos_local, mesh->triangles[i],
+				hit);
 			i++;
 		}
 		if (hit->ray_time < prev_hit)
@@ -127,6 +134,8 @@ unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
 {
 	t_hit	hit;
 	t_vec3	ray_dir;
+	t_vec3	world_normal;
+	t_vec3	color_res;
 
 	hit.ray_time = INFINITY;
 	hit.hit_something = 0;
@@ -136,8 +145,8 @@ unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
 	intersect_scene(scene, ray_dir, &hit);
 	if (hit.hit_something)
 	{
-		t_vec3	world_normal = local_to_world_normal(hit.normal_local, &hit);
-		t_vec3 color_res = vec3_mul(world_normal, 0.5);
+		world_normal = local_to_world_normal(hit.normal_local, &hit);
+		color_res = vec3_mul(world_normal, 0.5);
 		color_res = vec3_add_by_scalar(color_res, 0.5);
 		color_res = vec3_mul(color_res, 255.0f);
 		return (vec_to_hex(color_res));
