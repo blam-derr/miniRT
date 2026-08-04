@@ -53,3 +53,13 @@ t_vec3	vec3_add_by_scalar(t_vec3 a, float s)
 	res.z = a.z + s;
 	return (res);
 }
+
+t_vec3	vec3_mul_vec3(t_vec3 a, t_vec3 b)
+{
+	t_vec3	res;
+
+	res.x = a.x * b.x;
+	res.y = a.y * b.y;
+	res.z = a.z * b.z;
+	return (res);
+}

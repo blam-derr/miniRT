@@ -19,6 +19,7 @@
 #include "triangle.h"
 #include "utils.h"
 #include "vec.h"
+#include <stdio.h>
 
 #define EPSILON 1e-6
 
@@ -40,7 +41,7 @@ static void	set_hit_geometry(t_moller_trumbore_params calc, t_triangle tri, t_hi
 	}
 }
 
-static char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
+char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 		t_hit *hit)
 {
 	t_moller_trumbore_params	calc;
@@ -63,7 +64,8 @@ static char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 	calc.ray_time = vec3_dot(calc.edge2, calc.raylength_cross_edge1) * calc.inv_det;
 	if (calc.ray_time < EPSILON)
 		return (0);
-	set_hit_geometry(calc, tri, hit);
+	if (hit != NULL)
+		set_hit_geometry(calc, tri, hit);
 	return (1);
 }
 
@@ -123,6 +125,28 @@ static char	*intersect_scene(t_scene scene, t_vec3 ray_dir, t_hit *hit)
 	return (0);
 }
 
+static int clamp_color(float c)
+{
+    if (c < 0.0f)
+        c = 0.0f;
+    if (c > 1.0f)
+        c = 1.0f;
+
+    return ((int)(c * 255.0f + 0.5f));
+}
+
+static uint32_t	vec_to_color(t_vec3 color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = clamp_color(color.x);
+	g = clamp_color(color.y);
+	b = clamp_color(color.z);
+	return ((r << 16) | (g << 8) | b);
+}
+
 unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
 {
 	t_hit	hit;
@@ -134,13 +158,12 @@ unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
 			range_map_cam_coord(y, 0, program.window_height), scene.camera,
 			program);
 	intersect_scene(scene, ray_dir, &hit);
-	if (hit.hit_something)
-	{
-		t_vec3	world_normal = local_to_world_normal(hit.normal_local, &hit);
-		t_vec3 color_res = vec3_mul(world_normal, 0.5);
-		color_res = vec3_add_by_scalar(color_res, 0.5);
-		color_res = vec3_mul(color_res, 255.0f);
-		return (vec_to_hex(color_res));
-	}
-	return (vec_to_hex(scene.ambient.color));
+ if (!hit.hit_something)
+        return vec_to_hex(scene.ambient.color);
+    t_vec3 world_point = local_to_world_point(hit.point_local, &hit);
+    t_vec3 world_normal = local_to_world_normal(hit.normal_local, &hit);
+    t_vec3 view_dir = vec3_normalize(vec3_sub(scene.camera.position, world_point));
+    t_vec3 color = shade_blinn_phong(world_point, world_normal, view_dir,
+                                      hit.mesh->material, scene);
+    return vec_to_color(color);
 }

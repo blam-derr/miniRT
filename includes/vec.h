@@ -32,5 +32,6 @@ t_vec3	vec3_normalize(t_vec3 v);
 float	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 t_vec3	vec3_add_by_scalar(t_vec3 a, float s);
+t_vec3	vec3_mul_vec3(t_vec3 a, t_vec3 b);
 
 #endif
