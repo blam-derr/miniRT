@@ -16,6 +16,7 @@
 
 typedef struct s_hit	t_hit;
 typedef struct s_scene	t_scene;
+typedef struct s_mesh t_mesh;
 
 typedef struct s_triangle
 {
@@ -25,6 +26,6 @@ typedef struct s_triangle
 
 char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 		t_hit *hit);
-char	is_occluded(t_scene scene, t_vec3 origin, t_vec3 dir, float max_t);
+char	is_occluded(t_scene scene, t_vec3 origin, t_vec3 dir, float max_t, t_mesh *ignore_mesh);
 
 #endif

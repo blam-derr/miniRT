@@ -164,6 +164,6 @@ unsigned int	trace_ray(int x, int y, t_scene scene, t_program program)
     t_vec3 world_normal = local_to_world_normal(hit.normal_local, &hit);
     t_vec3 view_dir = vec3_normalize(vec3_sub(scene.camera.position, world_point));
     t_vec3 color = shade_blinn_phong(world_point, world_normal, view_dir,
-                                      hit.mesh->material, scene);
+                                      hit.mesh->material, scene, hit.mesh);
     return vec_to_color(color);
 }

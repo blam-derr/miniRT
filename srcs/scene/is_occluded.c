@@ -29,7 +29,7 @@ char	is_any_triangle_intersected(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 	return (1);
 }
 
-char	is_occluded(t_scene scene, t_vec3 origin, t_vec3 dir, float max_t)
+char	is_occluded(t_scene scene, t_vec3 origin, t_vec3 dir, float max_t, t_mesh *ignore_mesh)
 {
 	t_list	*objs;
 	t_mesh	*mesh;
@@ -72,6 +72,11 @@ char	is_occluded(t_scene scene, t_vec3 origin, t_vec3 dir, float max_t)
 		ray_dir_local = vec3_normalize(ray_dir_local);
 
 		i = 0;
+		if (mesh == ignore_mesh)
+		{
+			objs = objs->next;
+			continue;
+		}
 		while (i < mesh->triangle_count)
 		{
 			if (is_any_triangle_intersected(
