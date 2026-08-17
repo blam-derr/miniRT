@@ -102,6 +102,7 @@ t_mesh	*generate_cylinder(int slices, float radius, float height)
 		return (NULL);
 	mesh->triangle_count = slices * 4;
 	mesh->triangles = malloc(mesh->triangle_count * sizeof(t_triangle));
+	mesh->blas = NULL;
 	if (!mesh->triangles)
 		return (NULL);
 	index = 0;

@@ -6,10 +6,11 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 19:16:51 by jode-cas          #+#    #+#             */
-/*   Updated: 2026/04/16 19:23:07 by jode-cas         ###   ########.fr       */
+/*   Updated: 2026/08/04 00:00:00 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "bvh.h"
 #include "libft.h"
 #include "mesh.h"
 #include "scene.h"
@@ -26,5 +27,6 @@ static void	destroy_mesh(void *mesh_ptr)
 
 void	free_whole_scene(t_scene *scene)
 {
+	free_scene_accel(scene);
 	ft_lstclear(&(scene->objects), destroy_mesh);
 }

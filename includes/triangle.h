@@ -25,7 +25,10 @@ typedef struct s_triangle
 }	t_triangle;
 
 char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
-		t_hit *hit);
-char	is_occluded(t_scene scene, t_vec3 origin, t_vec3 dir, float max_t, t_mesh *ignore_mesh);
+			t_hit *hit);
+char	is_any_triangle_intersected(t_vec3 ray_dir, t_vec3 ray_pos,
+			t_triangle tri, float max_t);
+char	is_occluded(t_scene scene, t_vec3 origin, t_vec3 dir, float max_t,
+			t_mesh *ignore_mesh);
 
 #endif

@@ -22,7 +22,7 @@ uint8_t	parse_sphere(char **values, t_scene *scene)
 
 	if (string_array_length(values) != 8 || !check_array_of_numbers(values + 1))
 		return (0);
-	sphere = generate_sphere(20, 10, ft_atof(values[4]));
+	sphere = generate_sphere(32, 16, ft_atof(values[4]));
 	if (!sphere)
 		return (0);
 	sphere->pos.x = ft_atof(values[1]);

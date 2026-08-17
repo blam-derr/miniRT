@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "bvh.h"
 #include "miniRT.h"
 #include "mlx.h"
 #include "parser.h"
@@ -75,6 +76,12 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (1);
 	scene = parse_scene(argv[1]);
+	scene.accel = NULL;
+	if (!build_scene_accel(&scene))
+	{
+		free_whole_scene(&scene);
+		return (1);
+	}
 	program = init_program();
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
 	fill_mlx_img(scene, program);

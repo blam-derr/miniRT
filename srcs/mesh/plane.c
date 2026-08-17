@@ -64,6 +64,7 @@ t_mesh	*generate_plane(void)
 	mesh = malloc(sizeof(t_mesh));
 	mesh->triangle_count = 2;
 	mesh->triangles = malloc(mesh->triangle_count * sizeof(t_triangle));
+	mesh->blas = NULL;
 	calc_first_triangle(&mesh->triangles[0]);
 	calc_second_triangle(&mesh->triangles[1]);
 	return (mesh);

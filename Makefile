@@ -44,7 +44,12 @@ SRCS =	./srcs/main.c \
 		./srcs/mesh/sphere.c \
 		./srcs/mesh/plane.c \
 		./srcs/mesh/cylinder.c \
-		./srcs/mesh/cylinder_caps.c
+		./srcs/mesh/cylinder_caps.c \
+		./srcs/bvh/aabb.c \
+		./srcs/bvh/mesh_bake.c \
+		./srcs/bvh/median_build.c \
+		./srcs/bvh/blas.c \
+		./srcs/bvh/tlas.c
 
 OBJS = $(patsubst ./srcs/%.c,./objs/%.o,$(SRCS))
 

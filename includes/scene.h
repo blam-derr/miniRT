@@ -18,6 +18,8 @@
 # include "vec.h"
 # include "camera.h"
 
+typedef struct s_accel	t_accel;
+
 typedef enum e_object_type
 {
 	PLANE,
@@ -79,10 +81,11 @@ typedef struct s_scene
 	t_light		light;
 	t_list		*objects;
 	t_mesh		sphere;
+	t_accel		*accel;
 }				t_scene;
 
 void	free_whole_scene(t_scene *scene);
-t_vec3 shade_blinn_phong(t_vec3 point, t_vec3 normal, t_vec3 view_dir,
-                         t_material mat, t_scene scene, t_mesh *curr_mesh);
+t_vec3	shade_blinn_phong(t_vec3 point, t_vec3 normal, t_vec3 view_dir,
+			t_material mat, t_scene scene, t_mesh *curr_mesh);
 
 #endif

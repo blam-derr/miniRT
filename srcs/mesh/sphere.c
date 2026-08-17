@@ -87,6 +87,7 @@ t_mesh	*generate_sphere(int stacks, int slices, float radius)
 	res = malloc(sizeof(t_mesh));
 	res->triangle_count = stacks * slices * 2;
 	res->triangles = malloc(sizeof(t_triangle) * res->triangle_count);
+	res->blas = NULL;
 	w.res = res;
 	w.radius = radius / 2;
 	w.slices = slices;
