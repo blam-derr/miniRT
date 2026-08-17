@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 00:00:00 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/04 00:00:00 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/08/17 18:39:25 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "bvh.h"
 #include "mesh.h"
 #include <math.h>
-#define EPSILON 1e-6
 
 void	mesh_bake_transform(t_mesh *mesh)
 {

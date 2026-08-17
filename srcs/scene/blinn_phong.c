@@ -1,33 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   blinn_phong.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/17 18:41:08 by fbenini-          #+#    #+#             */
+/*   Updated: 2026/08/17 19:25:16 by fbenini-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "aabb.h"
 #include "mesh.h"
 #include "scene.h"
 #include "vec.h"
 #include <math.h>
-#define EPSILON 1e-6
 
-// TODO: NORMALIZE THE COLOR ON THE PARSER BETWEEN 0.0 and 0.1
-t_vec3 shade_blinn_phong(t_vec3 point, t_vec3 normal, t_vec3 view_dir,
-                         t_material mat, t_scene scene, t_mesh *curr_mesh) {
-  t_vec3 color_res;
+static t_vec3	calc_color_hit_by_light(t_blimm_phong_params bp, t_scene scene)
+{
+	bp.light_ci = vec3_mul(scene.light.color, scene.light.intensity);
+	bp.color_res = vec3_add(bp.color_res,
+			vec3_mul_vec3(bp.mat.color, vec3_mul(bp.light_ci,
+					bp.diffuse * bp.mat.diffuse_coefficient)));
+	bp.color_res = vec3_add(bp.color_res, vec3_mul(bp.light_ci,
+				bp.spec * bp.mat.specular_coefficient));
+	return (bp.color_res);
+}
 
-  color_res = vec3_mul(mat.color, scene.ambient.intensity);
-  t_vec3 light_dir = vec3_normalize(vec3_sub(scene.light.position, point));
-  float dist = vec3_length(vec3_sub(scene.light.position, point));
-  t_vec3 origin = vec3_add(point, vec3_mul(normal, EPSILON));
-  if (is_occluded(scene, origin, light_dir, dist, curr_mesh))
-     return (color_res);
-  float diffuse = fmax(vec3_dot(normal, light_dir), 0);
-  
-  float spec = 0.0f;
-  
-  if (diffuse > 0.0f)
-  {
-      t_vec3 half = vec3_normalize(vec3_add(light_dir, view_dir));
-      spec = powf(fmax(vec3_dot(normal, half), 0.0f), mat.shininess);
-  }
-  t_vec3 light_ci = vec3_mul(scene.light.color, scene.light.intensity);
-  // diffuse
-  color_res = vec3_add(color_res,
-  	vec3_mul_vec3(mat.color, vec3_mul(light_ci, diffuse * mat.diffuse_coefficient)));
-  color_res = vec3_add(color_res, vec3_mul(light_ci, spec * mat.specular_coefficient));
-  return (color_res);
+t_vec3	shade_blinn_phong(t_world_translated world, t_vec3 view_dir,
+		t_scene scene, t_mesh *curr_mesh)
+{
+	t_blimm_phong_params	bp;
+
+	bp.color_res = vec3_mul(bp.mat.color, scene.ambient.intensity);
+	bp.light_dir = vec3_normalize(vec3_sub(scene.light.position, world.point));
+	bp.dist = vec3_length(vec3_sub(scene.light.position, world.point));
+	bp.origin = vec3_add(world.point, vec3_mul(world.normal, EPSILON));
+	bp.ray = ray_make(bp.origin, bp.light_dir, EPSILON, bp.dist);
+	if (is_occluded(scene, bp.ray, curr_mesh))
+		return (bp.color_res);
+	bp.mat = curr_mesh->material;
+	bp.color_res = vec3_mul(bp.mat.color, scene.ambient.intensity);
+	bp.diffuse = fmax(vec3_dot(world.normal, bp.light_dir), 0);
+	bp.spec = 0.0f;
+	if (bp.diffuse > 0.0f)
+	{
+		bp.half = vec3_normalize(vec3_add(bp.light_dir, view_dir));
+		bp.spec = powf(fmax(vec3_dot(world.normal, bp.half), 0.0f),
+				bp.mat.shininess);
+	}
+	bp.color_res = calc_color_hit_by_light(bp, scene);
+	return (bp.color_res);
 }

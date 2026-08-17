@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 17:22:11 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/07/01 16:43:19 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/08/17 19:28:38 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,17 @@ static void	process_face(t_sphere_work *w, int i, int j)
 	w->index++;
 }
 
+t_mesh	*init_mesh_data(int stacks, int slices)
+{
+	t_mesh	*res;
+
+	res = malloc(sizeof(t_mesh));
+	res->triangle_count = stacks * slices * 2;
+	res->triangles = malloc(sizeof(t_triangle) * res->triangle_count);
+	res->blas = NULL;
+	return (res);
+}
+
 t_mesh	*generate_sphere(int stacks, int slices, float radius)
 {
 	t_mesh			*res;
@@ -84,10 +95,7 @@ t_mesh	*generate_sphere(int stacks, int slices, float radius)
 	int				i;
 	int				j;
 
-	res = malloc(sizeof(t_mesh));
-	res->triangle_count = stacks * slices * 2;
-	res->triangles = malloc(sizeof(t_triangle) * res->triangle_count);
-	res->blas = NULL;
+	res = init_mesh_data(stacks, slices);
 	w.res = res;
 	w.radius = radius / 2;
 	w.slices = slices;

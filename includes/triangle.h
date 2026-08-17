@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:07:01 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/04/22 21:05:07 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/08/17 19:29:34 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 typedef struct s_hit	t_hit;
 typedef struct s_scene	t_scene;
-typedef struct s_mesh t_mesh;
+typedef struct s_mesh	t_mesh;
+typedef struct s_ray	t_ray;
 
 typedef struct s_triangle
 {
@@ -28,7 +29,6 @@ char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
 			t_hit *hit);
 char	is_any_triangle_intersected(t_vec3 ray_dir, t_vec3 ray_pos,
 			t_triangle tri, float max_t);
-char	is_occluded(t_scene scene, t_vec3 origin, t_vec3 dir, float max_t,
-			t_mesh *ignore_mesh);
+char	is_occluded(t_scene scene, t_ray ray, t_mesh *ignore_mesh);
 
 #endif

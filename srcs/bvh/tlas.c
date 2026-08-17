@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 00:00:00 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/04 00:00:00 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/08/17 19:01:32 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include "scene.h"
 #include <stdlib.h>
-#define EPSILON 1e-6f
 
 typedef struct s_stack_item
 {

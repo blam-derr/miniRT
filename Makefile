@@ -41,6 +41,7 @@ SRCS =	./srcs/main.c \
 		./srcs/scene/ray.c \
 		./srcs/scene/is_occluded.c \
 		./srcs/scene/blinn_phong.c \
+		./srcs/scene/triangle_intersection.c \
 		./srcs/mesh/sphere.c \
 		./srcs/mesh/plane.c \
 		./srcs/mesh/cylinder.c \
