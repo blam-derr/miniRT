@@ -51,8 +51,8 @@ uint8_t	parse_light(char **values, t_scene *scene)
 	scene->light.position.y = ft_atof(values[2]);
 	scene->light.position.z = ft_atof(values[3]);
 	scene->light.intensity = ft_atof(values[4]);
-	scene->light.color.x = ft_atof(values[5]);
-	scene->light.color.y = ft_atof(values[6]);
-	scene->light.color.z = ft_atof(values[7]);
+	scene->light.color.x = ft_atof(values[5]) / 255;
+	scene->light.color.y = ft_atof(values[6]) / 255;
+	scene->light.color.z = ft_atof(values[7]) / 255;
 	return (1);
 }

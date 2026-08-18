@@ -60,6 +60,7 @@ t_scene	parse_scene(char *filename)
 		exit(1);
 	line = get_next_line(fd);
 	scene.objects = NULL;
+	scene.accel = NULL;
 	while (line)
 	{
 		if (!parse_line(line, &scene))

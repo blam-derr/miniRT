@@ -22,16 +22,16 @@ uint8_t	parse_sphere(char **values, t_scene *scene)
 
 	if (string_array_length(values) != 8 || !check_array_of_numbers(values + 1))
 		return (0);
-	sphere = generate_sphere(20, 10, ft_atof(values[4]));
+	sphere = generate_sphere(32, 16, ft_atof(values[4]));
 	if (!sphere)
 		return (0);
 	sphere->pos.x = ft_atof(values[1]);
 	sphere->pos.y = ft_atof(values[2]);
 	sphere->pos.z = ft_atof(values[3]);
 	sphere->dir = vec3_create(0, 1, 0);
-	vec_color.x = ft_atof(values[5]);
-	vec_color.y = ft_atof(values[6]);
-	vec_color.z = ft_atof(values[7]);
+	vec_color.x = ft_atof(values[5]) / 255;
+	vec_color.y = ft_atof(values[6]) / 255;
+	vec_color.z = ft_atof(values[7]) / 255;
 	sphere->material = new_material(vec_color, 0.8, 0.3, 32);
 	ft_lstadd_back(&scene->objects, ft_lstnew(sphere));
 	return (1);
@@ -54,9 +54,9 @@ uint8_t	parse_plane(char **values, t_scene *scene)
 	plane->dir.x = ft_atof(values[4]);
 	plane->dir.y = ft_atof(values[5]);
 	plane->dir.z = ft_atof(values[6]);
-	vec_color.x = ft_atof(values[7]);
-	vec_color.y = ft_atof(values[8]);
-	vec_color.z = ft_atof(values[9]);
+	vec_color.x = ft_atof(values[7]) / 255;
+	vec_color.y = ft_atof(values[8]) / 255;
+	vec_color.z = ft_atof(values[9]) / 255;
 	plane->material = new_material(vec_color, 0.8, 0.3, 32);
 	ft_lstadd_back(&scene->objects, ft_lstnew(plane));
 	return (1);
@@ -79,9 +79,9 @@ uint8_t	parse_cylinder(char **values, t_scene *scene)
 	cylinder->dir.x = ft_atof(values[4]);
 	cylinder->dir.y = ft_atof(values[5]);
 	cylinder->dir.z = ft_atof(values[6]);
-	vec_color.x = ft_atof(values[9]);
-	vec_color.y = ft_atof(values[10]);
-	vec_color.z = ft_atof(values[11]);
+	vec_color.x = ft_atof(values[9]) / 255;
+	vec_color.y = ft_atof(values[10]) / 255;
+	vec_color.z = ft_atof(values[11]) / 255;
 	cylinder->material = new_material(vec_color, 0.8, 0.3, 32);
 	ft_lstadd_back(&scene->objects, ft_lstnew(cylinder));
 	return (1);

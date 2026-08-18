@@ -39,10 +39,18 @@ SRCS =	./srcs/main.c \
 		./srcs/parser/dispatcher/parse_objects.c \
 		./srcs/scene/cleanup.c \
 		./srcs/scene/ray.c \
+		./srcs/scene/is_occluded.c \
+		./srcs/scene/blinn_phong.c \
+		./srcs/scene/triangle_intersection.c \
 		./srcs/mesh/sphere.c \
 		./srcs/mesh/plane.c \
 		./srcs/mesh/cylinder.c \
-		./srcs/mesh/cylinder_caps.c
+		./srcs/mesh/cylinder_caps.c \
+		./srcs/bvh/aabb.c \
+		./srcs/bvh/mesh_bake.c \
+		./srcs/bvh/median_build.c \
+		./srcs/bvh/blas.c \
+		./srcs/bvh/tlas.c
 
 OBJS = $(patsubst ./srcs/%.c,./objs/%.o,$(SRCS))
 

@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:38 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/06/15 17:57:39 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/08/17 19:25:11 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "mesh.h"
 # include "vec.h"
 # include "camera.h"
+# define EPSILON 1e-6
+
+typedef struct s_accel	t_accel;
 
 typedef enum e_object_type
 {
@@ -79,8 +82,31 @@ typedef struct s_scene
 	t_light		light;
 	t_list		*objects;
 	t_mesh		sphere;
+	t_accel		*accel;
 }				t_scene;
 
+typedef struct s_world_translated
+{
+	t_vec3		point;
+	t_vec3		normal;
+}				t_world_translated;
+
+typedef struct s_blimm_phong_params
+{
+	t_vec3		color_res;
+	t_vec3		light_dir;
+	t_vec3		half;
+	t_vec3		light_ci;
+	t_vec3		origin;
+	float		dist;
+	float		diffuse;
+	float		spec;
+	t_material	mat;
+	t_ray		ray;
+}			t_blimm_phong_params;
+
 void	free_whole_scene(t_scene *scene);
+t_vec3	shade_blinn_phong(t_world_translated translated_vars, t_vec3 view_dir,
+			t_scene scene, t_mesh *curr_mesh);
 
 #endif

@@ -6,15 +6,18 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 17:06:51 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/07/01 16:40:57 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/08/04 00:00:00 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MESH_H
 # define MESH_H
+# include "aabb.h"
 # include "triangle.h"
 # include "vec.h"
 # include <stddef.h>
+
+typedef struct s_bvh	t_bvh;
 
 typedef struct s_material
 {
@@ -31,6 +34,12 @@ typedef struct s_mesh
 	t_material		material;
 	t_vec3			pos;
 	t_vec3			dir;
+	t_vec3			basis_right;
+	t_vec3			basis_forward;
+	t_vec3			basis_up;
+	t_aabb			local_bounds;
+	t_aabb			world_bounds;
+	t_bvh			*blas;
 }					t_mesh;
 
 typedef struct s_sphere_face_data
