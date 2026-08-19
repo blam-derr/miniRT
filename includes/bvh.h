@@ -47,6 +47,19 @@ typedef struct s_bvh_prim
 	int		index;
 }	t_bvh_prim;
 
+typedef struct s_stack_item
+{
+	int		node;
+	float	t_enter;
+}	t_stack_item;
+
+typedef struct s_bvh_traversal
+{
+	t_bvh			*bvh;
+	t_stack_item	stack[BVH_STACK_SIZE];
+	int				sp;
+}	t_bvh_traversal;
+
 typedef struct s_instance
 {
 	t_mesh	*mesh;
@@ -61,8 +74,20 @@ typedef struct s_accel
 }	t_accel;
 
 void	mesh_bake_transform(t_mesh *mesh);
+t_aabb	bounds_of_range(t_bvh_prim *prims, int first, int count);
+t_aabb	centroid_bounds(t_bvh_prim *prims, int first, int count);
+int		partition_mid(t_bvh_prim *prims, int first, int count, int axis);
+t_bvh	*allocate_bvh(int prim_count);
+void	fill_prim_indices(t_bvh *bvh, t_bvh_prim *prims, int count);
 t_bvh	*bvh_build(t_bvh_prim *prims, int prim_count);
 void	bvh_free(t_bvh *bvh);
+t_bvh	*build_blas(t_mesh *mesh);
+void	intersect_blas(t_mesh *mesh, t_ray *ray, t_hit *hit);
+int		any_hit_blas(t_mesh *mesh, t_ray *ray);
+t_ray	world_to_local_ray(t_ray *world, t_mesh *mesh);
+void	bvh_push(t_bvh_traversal *tr, int node, float t);
+void	bvh_traverse_children(t_bvh_traversal *tr, t_ray *ray,
+			t_bvh_node *node);
 int		build_scene_accel(t_scene *scene);
 void	free_scene_accel(t_scene *scene);
 void	intersect_tlas(t_accel *accel, t_ray *ray, t_hit *hit);

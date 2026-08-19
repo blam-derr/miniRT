@@ -51,8 +51,15 @@ SRCS =	./srcs/main.c \
 		./srcs/bvh/aabb_ray.c \
 		./srcs/bvh/mesh_bake.c \
 		./srcs/bvh/median_build.c \
+		./srcs/bvh/bvh_build.c \
+		./srcs/bvh/bvh_alloc.c \
+		./srcs/bvh/bvh_traverse.c \
 		./srcs/bvh/blas.c \
-		./srcs/bvh/tlas.c
+		./srcs/bvh/blas_build.c \
+		./srcs/bvh/tlas.c \
+		./srcs/bvh/tlas_any.c \
+		./srcs/bvh/tlas_build.c \
+		./srcs/bvh/tlas_free.c
 
 OBJS = $(patsubst ./srcs/%.c,./objs/%.o,$(SRCS))
 
