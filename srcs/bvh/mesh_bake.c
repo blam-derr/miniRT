@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 00:00:00 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/17 18:39:25 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/08/18 15:46:30 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include "bvh.h"
 #include "mesh.h"
 #include <math.h>
+
+static void	transform_world_bounds(t_mesh *mesh)
+{
+	t_local_dirs	dirs;
+
+	dirs.right = mesh->basis_right;
+	dirs.forward = mesh->basis_forward;
+	dirs.up = mesh->basis_up;
+	mesh->world_bounds = aabb_transform(mesh->local_bounds, mesh->pos, dirs);
+}
 
 void	mesh_bake_transform(t_mesh *mesh)
 {
@@ -40,6 +50,5 @@ void	mesh_bake_transform(t_mesh *mesh)
 		aabb_expand_point(&mesh->local_bounds, mesh->triangles[i].v[2]);
 		i++;
 	}
-	mesh->world_bounds = aabb_transform(mesh->local_bounds, mesh->pos,
-			mesh->basis_right, mesh->basis_forward, mesh->basis_up);
+	transform_world_bounds(mesh);
 }

@@ -47,6 +47,8 @@ SRCS =	./srcs/main.c \
 		./srcs/mesh/cylinder.c \
 		./srcs/mesh/cylinder_caps.c \
 		./srcs/bvh/aabb.c \
+		./srcs/bvh/aabb_metrics.c \
+		./srcs/bvh/aabb_ray.c \
 		./srcs/bvh/mesh_bake.c \
 		./srcs/bvh/median_build.c \
 		./srcs/bvh/blas.c \
