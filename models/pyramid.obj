@@ -1,0 +1,14 @@
+# Pyramid without vertex normals (geometric normals are computed)
+# Uses negative (relative) indices and a quad base
+
+v  0.0  1.0  0.0
+v -1.0 -1.0  1.0
+v  1.0 -1.0  1.0
+v  1.0 -1.0 -1.0
+v -1.0 -1.0 -1.0
+
+f -5 -4 -3
+f -5 -3 -2
+f -5 -2 -1
+f -5 -1 -4
+f -4 -3 -2 -1
