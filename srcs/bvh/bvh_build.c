@@ -11,15 +11,6 @@
 /* ************************************************************************** */
 
 #include "bvh.h"
-#include <stdlib.h>
-
-typedef struct s_build_ctx
-{
-	t_bvh_prim	*prims;
-	t_bvh_node	*nodes;
-	int			node_count;
-	int			node_cap;
-}	t_build_ctx;
 
 static int	init_node(t_build_ctx *ctx, int first, int count)
 {

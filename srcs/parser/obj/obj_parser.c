@@ -15,6 +15,7 @@
 #include "utils.h"
 #include <fcntl.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static void	init_obj_data(t_obj_data *data)
 {

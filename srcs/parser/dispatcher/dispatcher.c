@@ -24,6 +24,7 @@ t_dispatched_fn	dispatch(char **values)
 	{"sp", parse_sphere},
 	{"pl", parse_plane},
 	{"cy", parse_cylinder},
+	{".obj", parse_obj},
 	};
 
 	i = 0;

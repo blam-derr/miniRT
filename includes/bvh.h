@@ -73,6 +73,14 @@ typedef struct s_accel
 	t_bvh		tlas;
 }	t_accel;
 
+typedef struct s_build_ctx
+{
+	t_bvh_prim	*prims;
+	t_bvh_node	*nodes;
+	int			node_count;
+	int			node_cap;
+}	t_build_ctx;
+
 void	mesh_bake_transform(t_mesh *mesh);
 t_aabb	bounds_of_range(t_bvh_prim *prims, int first, int count);
 t_aabb	centroid_bounds(t_bvh_prim *prims, int first, int count);
