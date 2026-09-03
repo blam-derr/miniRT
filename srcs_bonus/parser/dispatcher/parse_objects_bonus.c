@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "mesh_bonus.h"
 #include "scene_bonus.h"
 #include "utils_bonus.h"
 #include "vec_bonus.h"
+#include <stddef.h>
+#include <stdio.h>
 
 uint8_t	parse_sphere(char **values, t_scene *scene)
 {
@@ -84,5 +87,61 @@ uint8_t	parse_cylinder(char **values, t_scene *scene)
 	vec_color.z = ft_atof(values[11]) / 255;
 	cylinder->material = new_material(vec_color, 0.8, 0.3, 32);
 	ft_lstadd_back(&scene->objects, ft_lstnew(cylinder));
+	return (1);
+}
+
+static t_light	*allocate_sec_lights(t_scene *scene, size_t pos)
+{
+	t_light	*tmp;
+	size_t	i;
+
+	if (scene->secondary_lights == NULL)
+	{
+		printf("oi\n");
+		scene->secondary_lights = ft_calloc(5, sizeof(t_light));
+		if (!scene->secondary_lights)
+			return (NULL);
+		scene->secondary_lights_cap = 5;
+		scene->secondary_lights_qty = 0;
+		return (scene->secondary_lights);
+	}
+	if (pos >= scene->secondary_lights_cap)
+	{
+		tmp = calloc(scene->secondary_lights_cap * 2, sizeof(t_light));
+		if(!tmp)
+			return (NULL);
+		i = 0;
+		while (i < scene->secondary_lights_qty)
+		{
+			tmp[i] = scene->secondary_lights[i];
+			i++;
+		}
+		free(scene->secondary_lights);
+		scene->secondary_lights = tmp;
+		scene->secondary_lights_cap *= 2;
+	}
+	return (scene->secondary_lights);
+}
+
+uint8_t	parse_secondary_light(char **values, t_scene *scene)
+{
+	size_t	pos;
+
+	pos = scene->secondary_lights_qty;
+	if (scene->secondary_lights_cap <= pos || scene->secondary_lights == NULL)
+	{
+		if (!allocate_sec_lights(scene, pos))
+			return (0);
+	}
+	if (string_array_length(values) != 8 || !check_array_of_numbers(values + 1))
+		return (0);
+	scene->secondary_lights[pos].position.x = ft_atof(values[1]);
+	scene->secondary_lights[pos].position.y = ft_atof(values[2]);
+	scene->secondary_lights[pos].position.z = ft_atof(values[3]);
+	scene->secondary_lights[pos].intensity = ft_atof(values[4]);
+	scene->secondary_lights[pos].color.x = ft_atof(values[5]) / 255;
+	scene->secondary_lights[pos].color.y = ft_atof(values[6]) / 255;
+	scene->secondary_lights[pos].color.z = ft_atof(values[7]) / 255;
+	scene->secondary_lights_qty++;
 	return (1);
 }

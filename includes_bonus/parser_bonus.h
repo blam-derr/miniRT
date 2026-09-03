@@ -23,6 +23,7 @@ t_scene				parse_scene(char *filename);
 uint8_t				parse_ambient(char **values, t_scene *scene);
 uint8_t				parse_camera(char **values, t_scene *scene);
 uint8_t				parse_light(char **values, t_scene *scene);
+uint8_t				parse_secondary_light(char **values, t_scene *scene);
 uint8_t				parse_sphere(char **values, t_scene *scene);
 uint8_t				parse_plane(char **values, t_scene *scene);
 uint8_t				parse_cylinder(char **values, t_scene *scene);

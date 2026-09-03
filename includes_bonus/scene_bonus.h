@@ -80,6 +80,9 @@ typedef struct s_scene
 	t_ambient	ambient;
 	t_camera	camera;
 	t_light		light;
+	t_light		*secondary_lights;
+	size_t		secondary_lights_qty;
+	size_t		secondary_lights_cap;
 	t_list		*objects;
 	t_mesh		sphere;
 	t_accel		*accel;

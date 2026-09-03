@@ -21,6 +21,7 @@ t_dispatched_fn	dispatch(char **values)
 	{"A", parse_ambient},
 	{"C", parse_camera},
 	{"L", parse_light},
+	{"l", parse_secondary_light},
 	{"sp", parse_sphere},
 	{"pl", parse_plane},
 	{"cy", parse_cylinder},

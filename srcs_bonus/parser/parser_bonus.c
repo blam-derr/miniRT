@@ -61,6 +61,9 @@ t_scene	parse_scene(char *filename)
 	line = get_next_line(fd);
 	scene.objects = NULL;
 	scene.accel = NULL;
+	scene.secondary_lights = NULL;
+	scene.secondary_lights_qty = 0;
+	scene.secondary_lights_cap = 0;
 	while (line)
 	{
 		if (!parse_line(line, &scene))

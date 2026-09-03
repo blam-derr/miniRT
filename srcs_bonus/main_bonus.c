@@ -90,6 +90,7 @@ int	main(int argc, char *argv[])
 	mlx_key_hook(program.mlx.window, handle_keymaps, &program.mlx);
 	mlx_loop(program.mlx.mlx);
 	clear_program(program);
+	free(scene.secondary_lights);
 	free_whole_scene(&scene);
 	return (0);
 }
