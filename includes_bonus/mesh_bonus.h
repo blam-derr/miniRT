@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mesh.h                                             :+:      :+:    :+:   */
+/*   mesh_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 17:06:51 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/04 00:00:00 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:49:36 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MESH_H
-# define MESH_H
+#ifndef MESH_BONUS_H
+# define MESH_BONUS_H
 # include "aabb_bonus.h"
 # include "triangle_bonus.h"
 # include "vec_bonus.h"

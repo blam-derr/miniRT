@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_objects.c                                    :+:      :+:    :+:   */
+/*   parse_objects_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 19:44:34 by jode-cas          #+#    #+#             */
-/*   Updated: 2026/07/06 19:59:30 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:46:48 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,7 @@ static t_light	*allocate_sec_lights(t_scene *scene, size_t pos)
 
 	if (scene->secondary_lights == NULL)
 	{
-		printf("oi\n");
 		scene->secondary_lights = ft_calloc(5, sizeof(t_light));
-		if (!scene->secondary_lights)
-			return (NULL);
 		scene->secondary_lights_cap = 5;
 		scene->secondary_lights_qty = 0;
 		return (scene->secondary_lights);
@@ -108,8 +105,6 @@ static t_light	*allocate_sec_lights(t_scene *scene, size_t pos)
 	if (pos >= scene->secondary_lights_cap)
 	{
 		tmp = calloc(scene->secondary_lights_cap * 2, sizeof(t_light));
-		if(!tmp)
-			return (NULL);
 		i = 0;
 		while (i < scene->secondary_lights_qty)
 		{

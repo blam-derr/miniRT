@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   ray_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 16:20:23 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/07/31 21:11:32 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:49:36 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#ifndef RAY_BONUS_H
+# define RAY_BONUS_H
 
 # include "mesh_bonus.h"
 # include "vec_bonus.h"

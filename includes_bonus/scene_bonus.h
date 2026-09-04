@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   scene_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:08:38 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/17 19:25:11 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:49:36 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef SCENE_BONUS_H
+# define SCENE_BONUS_H
 
 # include "libft.h"
 # include "mesh_bonus.h"

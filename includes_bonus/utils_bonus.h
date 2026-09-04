@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   utils_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 17:27:03 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/05/12 20:25:40 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:49:36 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef UTILS_BONUS_H
+# define UTILS_BONUS_H
 
 # include "miniRT_bonus.h"
 # include "vec_bonus.h"

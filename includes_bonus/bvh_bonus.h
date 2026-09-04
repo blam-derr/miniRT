@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bvh.h                                              :+:      :+:    :+:   */
+/*   bvh_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 00:00:00 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/04 00:00:00 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:49:36 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BVH_H
-# define BVH_H
+#ifndef BVH_BONUS_H
+# define BVH_BONUS_H
 
 # include "aabb_bonus.h"
 # include "mesh_bonus.h"

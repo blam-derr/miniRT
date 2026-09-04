@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   triangle.h                                         :+:      :+:    :+:   */
+/*   triangle_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:07:01 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/17 19:29:34 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:49:36 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TRIANGLE_H
-# define TRIANGLE_H
+#ifndef TRIANGLE_BONUS_H
+# define TRIANGLE_BONUS_H
 # include "vec_bonus.h"
 
 typedef struct s_hit	t_hit;

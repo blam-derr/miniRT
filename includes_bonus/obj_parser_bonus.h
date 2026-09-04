@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_parser.h                                       :+:      :+:    :+:   */
+/*   obj_parser_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 00:00:00 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/23 00:00:00 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:49:36 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJ_PARSER_H
-# define OBJ_PARSER_H
+#ifndef OBJ_PARSER_BONUS_H
+# define OBJ_PARSER_BONUS_H
 
 # include "mesh_bonus.h"
 # include <stddef.h>
