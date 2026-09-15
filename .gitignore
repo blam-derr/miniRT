@@ -1,4 +1,5 @@
 *.o
 miniRT
+miniRT_bonus
 compile_flags.txt
 *.a
