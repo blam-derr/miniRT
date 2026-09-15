@@ -110,6 +110,15 @@ typedef struct s_blimm_phong_params
 	t_ray		ray;
 }			t_blimm_phong_params;
 
+typedef struct s_shade_light_params
+{
+	t_world_translated	world;
+	t_vec3				view_dir;
+	t_scene				scene;
+	t_mesh				*curr_mesh;
+	t_light				light;
+}			t_shade_light_params;
+
 void	free_whole_scene(t_scene *scene);
 t_vec3	shade_blinn_phong(t_world_translated translated_vars, t_vec3 view_dir,
 			t_scene scene, t_mesh *curr_mesh);

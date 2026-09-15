@@ -76,12 +76,14 @@ t_vec3	shade_blinn_phong(t_world_translated world, t_vec3 view_dir,
 	lp.view_dir = view_dir;
 	lp.scene = scene;
 	color = vec3_add(color,
-			shade_one_light(lp));
+			shade_one_light(world, view_dir, scene,
+				curr_mesh, scene.light));
 	i = 0;
 	while (i < scene.secondary_lights_qty)
 	{
-		lp.light = scene.secondary_lights[i];
-		color = vec3_add(color, shade_one_light(lp));
+		color = vec3_add(color,
+				shade_one_light(world, view_dir, scene,
+					curr_mesh, scene.secondary_lights[i]));
 		i++;
 	}
 	return (color);
