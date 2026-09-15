@@ -35,6 +35,7 @@ t_vec3			get_ray_dir(float x, float y, t_camera camera,
 					t_program program);
 
 unsigned int	trace_ray(int x, int y, t_scene scene, t_program program);
+t_vec3			trace_ray_recursive(t_scene scene, t_ray ray, int depth);
 
 t_material		new_material(t_vec3 color, float diffuse,
 					float specular, float shininess);

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "ray_bonus.h"
 #include "vec_bonus.h"
 #include "camera_bonus.h"

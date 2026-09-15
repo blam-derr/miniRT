@@ -18,6 +18,7 @@
 # include "vec_bonus.h"
 # include "camera_bonus.h"
 # define EPSILON 1e-6
+# define MAX_REFLECT_DEPTH 6
 
 typedef struct s_accel	t_accel;
 
@@ -92,6 +93,7 @@ typedef struct s_world_translated
 {
 	t_vec3		point;
 	t_vec3		normal;
+	t_vec3		geometric_normal;
 }				t_world_translated;
 
 typedef struct s_blimm_phong_params

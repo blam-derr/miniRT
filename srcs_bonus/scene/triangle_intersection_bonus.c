@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "triangle_bonus.h"
 #include "ray_bonus.h"
 #include "scene_bonus.h"
@@ -27,10 +28,12 @@ static void	set_hit_geometry(t_moller_trumbore_params calc, t_triangle tri,
 					vec3_add(vec3_mul(tri.n[2], calc.bary_coords.v),
 						vec3_mul(tri.n[1], calc.bary_coords.u))));
 		hit->ray_time = calc.ray_time;
-		hit->point_local = vec3_add(tri.v[0], vec3_add(vec3_mul(calc.edge1,
-						calc.bary_coords.u), vec3_mul(calc.edge2,
-						calc.bary_coords.v)));
+		hit->point_local = vec3_add(tri.v[0], vec3_add(
+					vec3_mul(calc.edge1, calc.bary_coords.u),
+					vec3_mul(calc.edge2, calc.bary_coords.v)));
 		hit->normal_local = calc.raydir_cross_edge2;
+		hit->geometric_normal_local = vec3_normalize(
+				vec3_cross(calc.edge1, calc.edge2));
 		hit->hit_something = 1;
 	}
 }

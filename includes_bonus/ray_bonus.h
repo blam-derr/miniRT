@@ -15,9 +15,7 @@
 
 # include "mesh_bonus.h"
 # include "vec_bonus.h"
-# include <math.h>
 # include <stddef.h>
-# include <stdio.h>
 
 typedef struct s_hit
 {
@@ -28,6 +26,7 @@ typedef struct s_hit
 	t_vec3			basis_right;
 	t_vec3			basis_forward;
 	t_vec3			basis_up;
+	t_vec3			geometric_normal_local;
 	char			hit_something;
 }					t_hit;
 

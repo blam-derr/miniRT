@@ -90,6 +90,7 @@ SRCS_BONUS =	./srcs_bonus/main_bonus.c \
 		./srcs_bonus/parser/dispatcher/dispatcher_bonus.c \
 		./srcs_bonus/parser/dispatcher/parse_required_bonus.c \
 		./srcs_bonus/parser/dispatcher/parse_objects_bonus.c \
+		./srcs_bonus/parser/dispatcher/parse_secondary_light_bonus.c \
 		./srcs_bonus/parser/obj/obj_arrays_bonus.c \
 		./srcs_bonus/parser/obj/obj_face_bonus.c \
 		./srcs_bonus/parser/obj/obj_face_line_bonus.c \
@@ -100,6 +101,7 @@ SRCS_BONUS =	./srcs_bonus/main_bonus.c \
 		./srcs_bonus/scene/ray_bonus.c \
 		./srcs_bonus/scene/is_occluded_bonus.c \
 		./srcs_bonus/scene/blinn_phong_bonus.c \
+		./srcs_bonus/scene/reflection_bonus.c \
 		./srcs_bonus/scene/triangle_intersection_bonus.c \
 		./srcs_bonus/mesh/sphere_bonus.c \
 		./srcs_bonus/mesh/plane_bonus.c \

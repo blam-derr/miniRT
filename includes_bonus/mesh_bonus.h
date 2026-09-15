@@ -25,6 +25,7 @@ typedef struct s_material
 	float		diffuse_coefficient;
 	float		specular_coefficient;
 	float		shininess;
+	float		reflectivity;
 }	t_material;
 
 typedef struct s_mesh

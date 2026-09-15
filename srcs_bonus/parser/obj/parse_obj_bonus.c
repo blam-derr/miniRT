@@ -60,7 +60,11 @@ static void	set_obj_props(t_mesh *mesh, char **values, int len)
 	t_vec3	color;
 	float	scale;
 
-	if (len == 12)
+	mesh->pos = vec3_create(0, 0, 0);
+	mesh->dir = vec3_create(0, 1, 0);
+	scale = 1.0f;
+	color = vec3_create(1, 1, 1);
+	if (len != 2)
 	{
 		mesh->pos = vec3_create(ft_atof(values[2]), ft_atof(values[3]),
 				ft_atof(values[4]));
@@ -70,14 +74,9 @@ static void	set_obj_props(t_mesh *mesh, char **values, int len)
 		color = vec3_create(ft_atof(values[9]) / 255,
 				ft_atof(values[10]) / 255, ft_atof(values[11]) / 255);
 	}
-	else
-	{
-		mesh->pos = vec3_create(0, 0, 0);
-		mesh->dir = vec3_create(0, 1, 0);
-		scale = 1.0f;
-		color = vec3_create(1, 1, 1);
-	}
 	mesh->material = new_material(color, 0.8, 0.3, 32);
+	if (len == 13)
+		mesh->material.reflectivity = ft_atof(values[12]);
 	apply_scale(mesh, scale);
 }
 
@@ -88,10 +87,12 @@ uint8_t	parse_obj(char **values, t_scene *scene)
 	int		len;
 
 	len = string_array_length(values);
-	if ((len != 2 && len != 12)
-		|| (len == 12 && !check_array_of_numbers(values + 2)))
+	if ((len != 2 && len != 12 && len != 13)
+		|| (len != 2 && !check_array_of_numbers(values + 2))
+		|| (len == 13 && (ft_atof(values[12]) < 0.0f
+				|| ft_atof(values[12]) > 1.0f)))
 		return (0);
-	if (len == 12 && ft_atof(values[8]) == 0.0)
+	if (len != 2 && ft_atof(values[8]) == 0.0)
 		return (0);
 	path = extract_obj_path(values[1]);
 	if (!path)
