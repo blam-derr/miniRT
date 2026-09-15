@@ -25,6 +25,7 @@ uint8_t	parse_ambient(char **values, t_scene *scene)
 	scene->ambient.color.x = ft_atof(values[2]) * intensity;
 	scene->ambient.color.y = ft_atof(values[3]) * intensity;
 	scene->ambient.color.z = ft_atof(values[4]) * intensity;
+	scene->has_ambient = 1;
 	return (1);
 }
 
@@ -39,6 +40,7 @@ uint8_t	parse_camera(char **values, t_scene *scene)
 	scene->camera.direction.y = ft_atof(values[5]);
 	scene->camera.direction.z = ft_atof(values[6]);
 	scene->camera.fov = ft_atof(values[7]);
+	scene->has_camera = 1;
 	calc_local_cam_axis(&scene->camera);
 	return (1);
 }
@@ -54,5 +56,6 @@ uint8_t	parse_light(char **values, t_scene *scene)
 	scene->light.color.x = ft_atof(values[5]) / 255;
 	scene->light.color.y = ft_atof(values[6]) / 255;
 	scene->light.color.z = ft_atof(values[7]) / 255;
+	scene->has_light = 1;
 	return (1);
 }

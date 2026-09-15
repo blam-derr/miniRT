@@ -46,8 +46,39 @@ void	graceful_exit(char *line, int fd, t_scene *scene)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	ft_putstr_fd("Error.\n", 2);
 	exit(1);
+}
+
+static void	set_initial_scene(t_scene *scene)
+{
+	scene->objects = NULL;
+	scene->accel = NULL;
+	scene->secondary_lights = NULL;
+	scene->secondary_lights_qty = 0;
+	scene->secondary_lights_cap = 0;
+	scene->has_ambient = 0;
+	scene->has_light = 0;
+	scene->has_camera = 0;
+}
+
+char	check_scene_requireds(t_scene scene)
+{
+	if (!scene.has_ambient)
+	{
+		ft_putstr_fd("Error: No ambient value.\n", 2);
+		return (0);
+	}
+	if (!scene.has_light)
+	{
+		ft_putstr_fd("Error: No light value.\n", 2);
+		return (0);
+	}
+	if (!scene.has_camera)
+	{
+		ft_putstr_fd("Error: No camera value.\n", 2);
+		return (0);
+	}
+	return (1);
 }
 
 t_scene	parse_scene(char *filename)
@@ -56,21 +87,22 @@ t_scene	parse_scene(char *filename)
 	char	*line;
 	t_scene	scene;
 
+	set_initial_scene(&scene);
 	if (!validate_file(filename, &fd))
 		exit(1);
 	line = get_next_line(fd);
-	scene.objects = NULL;
-	scene.accel = NULL;
-	scene.secondary_lights = NULL;
-	scene.secondary_lights_qty = 0;
-	scene.secondary_lights_cap = 0;
-	while (line)
+		while (line)
 	{
 		if (!parse_line(line, &scene))
+		{
+			ft_putstr_fd("Error.\n", 2);
 			graceful_exit(line, fd, &scene);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
+	if (!check_scene_requireds(scene))
+		graceful_exit(NULL, fd, &scene);
 	return (scene);
 }

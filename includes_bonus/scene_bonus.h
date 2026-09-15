@@ -87,6 +87,9 @@ typedef struct s_scene
 	t_list		*objects;
 	t_mesh		sphere;
 	t_accel		*accel;
+	char		has_light;
+	char		has_ambient;
+	char		has_camera;
 }				t_scene;
 
 typedef struct s_world_translated
