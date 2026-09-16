@@ -91,7 +91,7 @@ t_scene	parse_scene(char *filename)
 	if (!validate_file(filename, &fd))
 		exit(1);
 	line = get_next_line(fd);
-		while (line)
+	while (line)
 	{
 		if (!parse_line(line, &scene))
 		{
