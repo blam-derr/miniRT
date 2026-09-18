@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 16:32:15 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/09/04 20:49:36 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/17 15:39:35 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "scene_bonus.h"
 # include <stdint.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <fcntl.h>
 
 t_scene				parse_scene(char *filename);
@@ -29,6 +28,10 @@ uint8_t				parse_plane(char **values, t_scene *scene);
 uint8_t				parse_cylinder(char **values, t_scene *scene);
 uint8_t				parse_obj(char **values, t_scene *scene);
 uint8_t				validate_file(char *filename, int *fd);
+uint8_t				check_numeric_range(char **values, int start, int end);
+int					parse_texture_opt(char **values, int len, int prefix_len,
+						t_material *material);
+int					is_numeric_token(char *s);
 
 typedef uint8_t		(*t_dispatched_fn)(char **values, t_scene *scene);
 

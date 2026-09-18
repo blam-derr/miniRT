@@ -84,12 +84,14 @@ SRCS_BONUS =	./srcs_bonus/main_bonus.c \
 		./srcs_bonus/utils/algebra/base_vec3_bonus.c \
 		./srcs_bonus/utils/algebra/adv_vec3_bonus.c \
 		./srcs_bonus/utils/algebra/create_vec3_bonus.c \
+		./srcs_bonus/utils/algebra/vec2_bonus.c \
 		./srcs_bonus/utils/ray_utils_bonus.c \
 		./srcs_bonus/parser/parser_bonus.c \
 		./srcs_bonus/parser/file_validation_bonus.c \
 		./srcs_bonus/parser/dispatcher/dispatcher_bonus.c \
 		./srcs_bonus/parser/dispatcher/parse_required_bonus.c \
 		./srcs_bonus/parser/dispatcher/parse_objects_bonus.c \
+		./srcs_bonus/parser/dispatcher/parse_texture_bonus.c \
 		./srcs_bonus/parser/dispatcher/parse_secondary_light_bonus.c \
 		./srcs_bonus/parser/obj/obj_arrays_bonus.c \
 		./srcs_bonus/parser/obj/obj_face_bonus.c \
@@ -107,6 +109,9 @@ SRCS_BONUS =	./srcs_bonus/main_bonus.c \
 		./srcs_bonus/mesh/plane_bonus.c \
 		./srcs_bonus/mesh/cylinder_bonus.c \
 		./srcs_bonus/mesh/cylinder_caps_bonus.c \
+		./srcs_bonus/texture/texture_load_bonus.c \
+		./srcs_bonus/texture/texture_sample_bonus.c \
+		./srcs_bonus/texture/uv_map_bonus.c \
 		./srcs_bonus/bvh/aabb_bonus.c \
 		./srcs_bonus/bvh/aabb_metrics_bonus.c \
 		./srcs_bonus/bvh/aabb_ray_bonus.c \

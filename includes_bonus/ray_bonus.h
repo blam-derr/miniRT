@@ -27,6 +27,8 @@ typedef struct s_hit
 	t_vec3			basis_forward;
 	t_vec3			basis_up;
 	t_vec3			geometric_normal_local;
+	t_vec2			uv;
+	char			has_uv;
 	char			hit_something;
 }					t_hit;
 

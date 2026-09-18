@@ -22,11 +22,14 @@ static void	destroy_mesh(void *mesh_ptr)
 
 	mesh = (t_mesh *)mesh_ptr;
 	free(mesh->triangles);
+	free(mesh->material.texture_path);
 	free(mesh);
 }
 
-void	free_whole_scene(t_scene *scene)
+char	free_whole_scene(t_scene *scene)
 {
 	free_scene_accel(scene);
 	ft_lstclear(&(scene->objects), destroy_mesh);
+	free(scene->secondary_lights);
+	return (1);
 }

@@ -75,9 +75,14 @@ static void	set_obj_props(t_mesh *mesh, char **values, int len)
 				ft_atof(values[10]) / 255, ft_atof(values[11]) / 255);
 	}
 	mesh->material = new_material(color, 0.8, 0.3, 32);
-	if (len == 13)
-		mesh->material.reflectivity = ft_atof(values[12]);
 	apply_scale(mesh, scale);
+}
+
+static void	free_obj_mesh(t_mesh *mesh)
+{
+	free(mesh->triangles);
+	free(mesh->material.texture_path);
+	free(mesh);
 }
 
 uint8_t	parse_obj(char **values, t_scene *scene)
@@ -87,10 +92,8 @@ uint8_t	parse_obj(char **values, t_scene *scene)
 	int		len;
 
 	len = string_array_length(values);
-	if ((len != 2 && len != 12 && len != 13)
-		|| (len != 2 && !check_array_of_numbers(values + 2))
-		|| (len == 13 && (ft_atof(values[12]) < 0.0f
-				|| ft_atof(values[12]) > 1.0f)))
+	if ((len != 2 && (len < 12 || len > 16))
+		|| (len != 2 && !check_numeric_range(values, 2, 12)))
 		return (0);
 	if (len != 2 && ft_atof(values[8]) == 0.0)
 		return (0);
@@ -102,6 +105,11 @@ uint8_t	parse_obj(char **values, t_scene *scene)
 	if (!mesh)
 		return (0);
 	set_obj_props(mesh, values, len);
+	if (len != 2 && !parse_texture_opt(values, len, 12, &mesh->material))
+	{
+		free_obj_mesh(mesh);
+		return (0);
+	}
 	ft_lstadd_back(&scene->objects, ft_lstnew(mesh));
 	return (1);
 }

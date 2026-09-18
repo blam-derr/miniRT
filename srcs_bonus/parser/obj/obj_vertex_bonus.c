@@ -35,6 +35,19 @@ static int	is_obj_number(char *s)
 	return (has_digit);
 }
 
+int	parse_uv_line(char **tokens, t_obj_data *data)
+{
+	t_vec2	uv;
+
+	if (string_array_length(tokens) < 3
+		|| !is_obj_number(tokens[1])
+		|| !is_obj_number(tokens[2]))
+		return (0);
+	uv.u = ft_atof(tokens[1]);
+	uv.v = ft_atof(tokens[2]);
+	return (push_vec2(&data->uvs, &data->uv_count, &data->uv_cap, uv));
+}
+
 int	parse_vec3_line(char **tokens, t_obj_data *data, int is_normal)
 {
 	t_vec3	v;

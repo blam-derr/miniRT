@@ -19,10 +19,12 @@ static int	alloc_face_idx(t_face_idx *face)
 {
 	face->v = malloc(sizeof(size_t) * face->count);
 	face->n = malloc(sizeof(long) * face->count);
-	if (!face->v || !face->n)
+	face->uv = malloc(sizeof(long) * face->count);
+	if (!face->v || !face->n || !face->uv)
 	{
 		free(face->v);
 		free(face->n);
+		free(face->uv);
 		return (0);
 	}
 	return (1);
@@ -32,6 +34,7 @@ static void	free_face_idx(t_face_idx *face)
 {
 	free(face->v);
 	free(face->n);
+	free(face->uv);
 }
 
 static int	fill_face_idx(char **tokens, t_obj_data *data, t_face_idx *face)
@@ -41,7 +44,8 @@ static int	fill_face_idx(char **tokens, t_obj_data *data, t_face_idx *face)
 	i = 0;
 	while (i < face->count)
 	{
-		if (!parse_face_token(tokens[i + 1], data, &face->v[i], &face->n[i]))
+		if (!parse_face_token(tokens[i + 1], data, &face->v[i],
+				&face->n[i], &face->uv[i]))
 			return (0);
 		i++;
 	}
@@ -53,6 +57,7 @@ static int	fan_triangulate(t_obj_data *data, t_face_idx *face)
 	int		i;
 	size_t	v[3];
 	long	n[3];
+	long	uv[3];
 
 	i = 1;
 	while (i < face->count - 1)
@@ -63,7 +68,10 @@ static int	fan_triangulate(t_obj_data *data, t_face_idx *face)
 		n[0] = face->n[0];
 		n[1] = face->n[i];
 		n[2] = face->n[i + 1];
-		if (!emit_triangle(data, v, n))
+		uv[0] = face->uv[0];
+		uv[1] = face->uv[i];
+		uv[2] = face->uv[i + 1];
+		if (!emit_triangle(data, v, n, uv))
 			return (0);
 		i++;
 	}

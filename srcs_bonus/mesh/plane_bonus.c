@@ -34,6 +34,7 @@ static void	calc_first_triangle(t_triangle *triangle)
 	triangle->n[0] = n;
 	triangle->n[1] = n;
 	triangle->n[2] = n;
+	triangle->has_uv = 0;
 }
 
 static void	calc_second_triangle(t_triangle *triangle)
@@ -55,6 +56,7 @@ static void	calc_second_triangle(t_triangle *triangle)
 	triangle->n[0] = n;
 	triangle->n[1] = n;
 	triangle->n[2] = n;
+	triangle->has_uv = 0;
 }
 
 t_mesh	*generate_plane(void)
@@ -65,6 +67,7 @@ t_mesh	*generate_plane(void)
 	mesh->triangle_count = 2;
 	mesh->triangles = malloc(mesh->triangle_count * sizeof(t_triangle));
 	mesh->blas = NULL;
+	mesh->shape = SHAPE_PLANE;
 	calc_first_triangle(&mesh->triangles[0]);
 	calc_second_triangle(&mesh->triangles[1]);
 	return (mesh);

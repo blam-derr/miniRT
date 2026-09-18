@@ -1,0 +1,10 @@
+/* XPM */
+static char *uvtest_xpm[] = {
+"2 2 4 1",
+"r	c #FF0000",
+"g	c #00FF00",
+"b	c #0000FF",
+"y	c #FFFF00",
+"rg",
+"by"
+};

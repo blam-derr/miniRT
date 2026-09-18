@@ -16,6 +16,7 @@
 #include "parser_bonus.h"
 #include "scene_bonus.h"
 #include "utils_bonus.h"
+#include <stdio.h>
 
 t_program	init_program(void)
 {
@@ -38,8 +39,9 @@ t_program	init_program(void)
 	return (program);
 }
 
-void	clear_program(t_program program)
+static void	clear_program(t_program program, t_scene *scene)
 {
+	free_scene_textures(program.mlx.mlx, scene);
 	mlx_destroy_image(program.mlx.mlx, program.img.img);
 	mlx_destroy_window(program.mlx.mlx, program.mlx.window);
 	mlx_destroy_display(program.mlx.mlx);
@@ -78,19 +80,20 @@ int	main(int argc, char *argv[])
 	scene = parse_scene(argv[1]);
 	scene.accel = NULL;
 	if (!build_scene_accel(&scene))
-	{
-		free_whole_scene(&scene);
-		return (1);
-	}
+		return (free_whole_scene(&scene));
 	program = init_program();
+	if (!load_scene_textures(program.mlx.mlx, &scene))
+	{
+		clear_program(program, &scene);
+		return (free_whole_scene(&scene));
+	}
 	mlx_hook(program.mlx.window, 17, 0, close_window, &program.mlx);
 	fill_mlx_img(scene, program);
 	mlx_put_image_to_window(program.mlx.mlx, program.mlx.window,
 		program.img.img, 0, 0);
 	mlx_key_hook(program.mlx.window, handle_keymaps, &program.mlx);
 	mlx_loop(program.mlx.mlx);
-	clear_program(program);
-	free(scene.secondary_lights);
+	clear_program(program, &scene);
 	free_whole_scene(&scene);
 	return (0);
 }

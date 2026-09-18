@@ -62,6 +62,7 @@ static void	fill_side_triangles(t_mesh *mesh, size_t *index, t_vec3 *p,
 	mesh->triangles[*index].n[0] = n[0];
 	mesh->triangles[*index].n[1] = n[1];
 	mesh->triangles[*index].n[2] = n[2];
+	mesh->triangles[*index].has_uv = 0;
 	(*index)++;
 	mesh->triangles[*index].v[0] = p[0];
 	mesh->triangles[*index].v[1] = p[2];
@@ -69,6 +70,7 @@ static void	fill_side_triangles(t_mesh *mesh, size_t *index, t_vec3 *p,
 	mesh->triangles[*index].n[0] = n[0];
 	mesh->triangles[*index].n[1] = n[2];
 	mesh->triangles[*index].n[2] = n[3];
+	mesh->triangles[*index].has_uv = 0;
 	(*index)++;
 }
 
@@ -105,6 +107,7 @@ t_mesh	*generate_cylinder(int slices, float radius, float height)
 	mesh->blas = NULL;
 	if (!mesh->triangles)
 		return (NULL);
+	mesh->shape = SHAPE_CYLINDER;
 	index = 0;
 	generate_side_faces(mesh, &index, cyl);
 	generate_cylinder_caps(mesh, &index, cyl);

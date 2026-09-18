@@ -67,6 +67,7 @@ static void	process_face(t_sphere_work *w, int i, int j)
 	w->res->triangles[w->index].n[0] = n[0];
 	w->res->triangles[w->index].n[1] = n[1];
 	w->res->triangles[w->index].n[2] = n[2];
+	w->res->triangles[w->index].has_uv = 0;
 	w->index++;
 	w->res->triangles[w->index].v[0] = p[0];
 	w->res->triangles[w->index].v[1] = p[2];
@@ -74,7 +75,7 @@ static void	process_face(t_sphere_work *w, int i, int j)
 	w->res->triangles[w->index].n[0] = n[0];
 	w->res->triangles[w->index].n[1] = n[2];
 	w->res->triangles[w->index].n[2] = n[3];
-	w->index++;
+	w->res->triangles[w->index++].has_uv = 0;
 }
 
 t_mesh	*init_mesh_data(int stacks, int slices)
@@ -85,6 +86,7 @@ t_mesh	*init_mesh_data(int stacks, int slices)
 	res->triangle_count = stacks * slices * 2;
 	res->triangles = malloc(sizeof(t_triangle) * res->triangle_count);
 	res->blas = NULL;
+	res->shape = SHAPE_SPHERE;
 	return (res);
 }
 

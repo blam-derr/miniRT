@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/14 00:00:00 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/09/14 00:00:00 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/17 20:43:21 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_hit	init_hit(void)
 
 	hit.ray_time = INFINITY;
 	hit.hit_something = 0;
+	hit.has_uv = 0;
 	hit.mesh = NULL;
 	return (hit);
 }
@@ -74,6 +75,10 @@ t_vec3	trace_ray_recursive(t_scene scene, t_ray ray, int depth)
 	world.normal = local_to_world_normal(hit.normal_local, &hit);
 	world.geometric_normal = local_to_world_normal(
 			hit.geometric_normal_local, &hit);
+	world.point_local = hit.point_local;
+	world.geometric_normal_local = hit.geometric_normal_local;
+	world.uv = hit.uv;
+	world.has_uv = hit.has_uv;
 	local = shade_blinn_phong(world, vec3_mul(ray.dir, -1.0f),
 			scene, hit.mesh);
 	k = hit.mesh->material.reflectivity;

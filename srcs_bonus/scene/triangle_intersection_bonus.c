@@ -15,6 +15,18 @@
 #include "ray_bonus.h"
 #include "scene_bonus.h"
 
+static void	handle_uv_case(t_hit *hit, t_triangle tri, float barycenter,
+		t_moller_trumbore_params calc)
+{
+	hit->uv.u = barycenter * tri.uv[0].u
+		+ calc.bary_coords.u * tri.uv[1].u
+		+ calc.bary_coords.v * tri.uv[2].u;
+	hit->uv.v = barycenter * tri.uv[0].v
+		+ calc.bary_coords.u * tri.uv[1].v
+		+ calc.bary_coords.v * tri.uv[2].v;
+	hit->has_uv = 1;
+}
+
 static void	set_hit_geometry(t_moller_trumbore_params calc, t_triangle tri,
 		t_hit *hit)
 {
@@ -34,6 +46,10 @@ static void	set_hit_geometry(t_moller_trumbore_params calc, t_triangle tri,
 		hit->normal_local = calc.raydir_cross_edge2;
 		hit->geometric_normal_local = vec3_normalize(
 				vec3_cross(calc.edge1, calc.edge2));
+		if (tri.has_uv)
+			handle_uv_case(hit, tri, barycenter, calc);
+		else
+			hit->has_uv = 0;
 		hit->hit_something = 1;
 	}
 }

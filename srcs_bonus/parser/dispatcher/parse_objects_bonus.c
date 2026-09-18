@@ -6,19 +6,19 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 19:44:34 by jode-cas          #+#    #+#             */
-/*   Updated: 2026/09/04 20:46:48 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/17 15:39:50 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mesh_bonus.h"
 #include "scene_bonus.h"
+#include "parser_bonus.h"
 #include "utils_bonus.h"
 #include "vec_bonus.h"
 #include <stddef.h>
-#include <stdio.h>
 
-static t_material	parse_object_material(char **values, int len, int color_idx)
+static t_material	parse_object_material(char **values, int color_idx)
 {
 	t_material	material;
 	t_vec3		color;
@@ -27,11 +27,21 @@ static t_material	parse_object_material(char **values, int len, int color_idx)
 			ft_atof(values[color_idx + 1]) / 255.0f,
 			ft_atof(values[color_idx + 2]) / 255.0f);
 	material = new_material(color, 0.8, 0.3, 32);
-	if (len > color_idx + 3)
-		material.reflectivity = ft_atof(values[color_idx + 3]);
-	if (material.reflectivity < 0.0f || material.reflectivity > 1.0f)
-		material.reflectivity = -1.0f;
 	return (material);
+}
+
+uint8_t	check_numeric_range(char **values, int start, int end)
+{
+	int	i;
+
+	i = start;
+	while (i < end)
+	{
+		if (!is_numeric_token(values[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 uint8_t	parse_sphere(char **values, t_scene *scene)
@@ -41,10 +51,10 @@ uint8_t	parse_sphere(char **values, t_scene *scene)
 	int			len;
 
 	len = string_array_length(values);
-	if ((len != 8 && len != 9) || !check_array_of_numbers(values + 1))
+	if (len < 8 || len > 12 || !check_numeric_range(values, 1, 8))
 		return (0);
-	material = parse_object_material(values, len, 5);
-	if (material.reflectivity < 0.0f)
+	material = parse_object_material(values, 5);
+	if (!parse_texture_opt(values, len, 8, &material))
 		return (0);
 	sphere = generate_sphere(32, 16, ft_atof(values[4]));
 	if (!sphere)
@@ -65,10 +75,10 @@ uint8_t	parse_plane(char **values, t_scene *scene)
 	int			len;
 
 	len = string_array_length(values);
-	if ((len != 10 && len != 11) || !check_array_of_numbers(values + 1))
+	if (len < 10 || len > 14 || !check_numeric_range(values, 1, 10))
 		return (0);
-	material = parse_object_material(values, len, 7);
-	if (material.reflectivity < 0.0f)
+	material = parse_object_material(values, 7);
+	if (!parse_texture_opt(values, len, 10, &material))
 		return (0);
 	plane = generate_plane();
 	if (!plane)
@@ -91,10 +101,10 @@ uint8_t	parse_cylinder(char **values, t_scene *scene)
 	int			len;
 
 	len = string_array_length(values);
-	if ((len != 12 && len != 13) || !check_array_of_numbers(values + 1))
+	if (len < 12 || len > 16 || !check_numeric_range(values, 1, 12))
 		return (0);
-	material = parse_object_material(values, len, 9);
-	if (material.reflectivity < 0.0f)
+	material = parse_object_material(values, 9);
+	if (!parse_texture_opt(values, len, 12, &material))
 		return (0);
 	cylinder = generate_cylinder(32, ft_atof(values[7]), ft_atof(values[8]));
 	if (!cylinder)

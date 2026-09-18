@@ -53,5 +53,10 @@ t_material	new_material(t_vec3 color, float diffuse,
 	material.specular_coefficient = specular;
 	material.shininess = shininess;
 	material.reflectivity = 0.0f;
+	material.has_texture = 0;
+	material.texture_path = NULL;
+	material.texture_scale = 1.0f;
+	material.texture.img = NULL;
+	material.texture.addr = NULL;
 	return (material);
 }

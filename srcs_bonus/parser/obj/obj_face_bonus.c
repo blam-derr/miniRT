@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_face.c                                         :+:      :+:    :+:   */
+/*   obj_face_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 00:00:00 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/23 00:00:00 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/17 20:38:08 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,37 @@ static int	resolve_index(int idx, size_t count, long *out)
 	return (1);
 }
 
-int	parse_face_token(char *token, t_obj_data *data, size_t *v_idx, long *n_idx)
+static int	parse_uv_index(char *slash1, char *slash2,
+		t_obj_data *data, long *uv_idx)
+{
+	char	*uv_str;
+	size_t	len;
+
+	if (slash2 && slash2 == slash1 + 1)
+		return (1);
+	len = ft_strlen(slash1 + 1);
+	if (slash2)
+		len = (size_t)(slash2 - slash1 - 1);
+	uv_str = ft_substr(slash1 + 1, 0, len);
+	if (!uv_str)
+		return (0);
+	if (!resolve_index(ft_atoi(uv_str), data->uv_count, uv_idx))
+	{
+		free(uv_str);
+		return (0);
+	}
+	free(uv_str);
+	return (1);
+}
+
+int	parse_face_token(char *token, t_obj_data *data, size_t *v_idx,
+		long *n_idx, long *uv_idx)
 {
 	char	*slash1;
 	char	*slash2;
 	long	resolved;
 
+	*uv_idx = -1;
 	*n_idx = -1;
 	if (!resolve_index(ft_atoi(token), data->v_count, &resolved))
 		return (0);
@@ -43,6 +68,8 @@ int	parse_face_token(char *token, t_obj_data *data, size_t *v_idx, long *n_idx)
 	if (!slash1)
 		return (1);
 	slash2 = ft_strchr(slash1 + 1, '/');
+	if (!parse_uv_index(slash1, slash2, data, uv_idx))
+		return (0);
 	if (slash2 && slash2[1] != '\0'
 		&& !resolve_index(ft_atoi(slash2 + 1), data->n_count, n_idx))
 		return (0);
@@ -70,7 +97,7 @@ void	set_tri_normals(t_obj_data *data, t_triangle *tri, long *n)
 	}
 }
 
-int	emit_triangle(t_obj_data *data, size_t *v, long *n)
+int	emit_triangle(t_obj_data *data, size_t *v, long *n, long *uv)
 {
 	t_triangle	tri;
 
@@ -78,5 +105,14 @@ int	emit_triangle(t_obj_data *data, size_t *v, long *n)
 	tri.v[1] = data->verts[v[1]];
 	tri.v[2] = data->verts[v[2]];
 	set_tri_normals(data, &tri, n);
+	if (uv[0] >= 0 && uv[1] >= 0 && uv[2] >= 0)
+	{
+		tri.uv[0] = data->uvs[uv[0]];
+		tri.uv[1] = data->uvs[uv[1]];
+		tri.uv[2] = data->uvs[uv[2]];
+		tri.has_uv = 1;
+	}
+	else
+		tri.has_uv = 0;
 	return (push_triangle(data, tri));
 }

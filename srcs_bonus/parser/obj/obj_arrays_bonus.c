@@ -47,6 +47,15 @@ int	push_vec3(t_vec3 **arr, size_t *count, size_t *cap, t_vec3 v)
 	return (1);
 }
 
+int	push_vec2(t_vec2 **arr, size_t *count, size_t *cap, t_vec2 uv)
+{
+	if (!grow_array((void **)arr, cap, *count, sizeof(t_vec2)))
+		return (0);
+	(*arr)[*count] = uv;
+	(*count)++;
+	return (1);
+}
+
 int	push_triangle(t_obj_data *data, t_triangle tri)
 {
 	if (!grow_array((void **)&data->tris, &data->t_cap,

@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   blinn_phong.c                                      :+:      :+:    :+:   */
+/*   blinn_phong_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 18:41:08 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/08/17 19:40:44 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/17 20:40:01 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "aabb_bonus.h"
 #include "mesh_bonus.h"
 #include "scene_bonus.h"
+#include "utils_bonus.h"
 #include "vec_bonus.h"
 #include <math.h>
 
@@ -32,12 +33,28 @@ static t_vec3	calc_color_hit_by_light(t_blimm_phong_params bp,
 	return (color);
 }
 
+static t_vec3	get_base_color(t_world_translated world, t_mesh *mesh)
+{
+	t_vec2	uv;
+	t_vec3	tex;
+
+	if (!mesh->material.has_texture)
+		return (mesh->material.color);
+	if (world.has_uv)
+		uv = world.uv;
+	else
+		uv = get_mesh_uv(mesh, world.point_local,
+				world.geometric_normal_local);
+	tex = sample_texture(&mesh->material.texture, uv);
+	return (vec3_mul_vec3(tex, mesh->material.color));
+}
+
 static t_vec3	shade_one_light(t_shade_light_params lp)
 {
 	t_blimm_phong_params	bp;
-	t_vec3					result;
 
 	bp.mat = lp.curr_mesh->material;
+	bp.mat.color = lp.base_color;
 	bp.light_dir = vec3_normalize(
 			vec3_sub(lp.light.position, lp.world.point));
 	bp.dist = vec3_length(
@@ -57,20 +74,21 @@ static t_vec3	shade_one_light(t_shade_light_params lp)
 	bp.spec = powf(
 			fmax(vec3_dot(lp.world.normal, bp.half), 0.0f),
 			bp.mat.shininess);
-	result = calc_color_hit_by_light(bp, lp.light);
-	return (result);
+	return (calc_color_hit_by_light(bp, lp.light));
 }
 
 t_vec3	shade_blinn_phong(t_world_translated world, t_vec3 view_dir,
 		t_scene scene, t_mesh *curr_mesh)
 {
 	t_vec3					color;
+	t_vec3					base_color;
 	size_t					i;
 	t_shade_light_params	lp;
 
-	color = vec3_mul(curr_mesh->material.color,
-			scene.ambient.intensity);
+	base_color = get_base_color(world, curr_mesh);
+	color = vec3_mul(base_color, scene.ambient.intensity);
 	lp.curr_mesh = curr_mesh;
+	lp.base_color = base_color;
 	lp.light = scene.light;
 	lp.world = world;
 	lp.view_dir = view_dir;

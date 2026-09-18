@@ -25,6 +25,9 @@ static void	init_obj_data(t_obj_data *data)
 	data->normals = NULL;
 	data->n_count = 0;
 	data->n_cap = 0;
+	data->uvs = NULL;
+	data->uv_count = 0;
+	data->uv_cap = 0;
 	data->tris = NULL;
 	data->t_count = 0;
 	data->t_cap = 0;
@@ -34,6 +37,7 @@ static void	free_obj_data(t_obj_data *data)
 {
 	free(data->verts);
 	free(data->normals);
+	free(data->uvs);
 	free(data->tris);
 }
 
@@ -57,6 +61,8 @@ static int	process_line(char *line, t_obj_data *data)
 		ok = parse_vec3_line(tokens, data, 0);
 	else if (ft_strcmp(tokens[0], "vn") == 0)
 		ok = parse_vec3_line(tokens, data, 1);
+	else if (ft_strcmp(tokens[0], "vt") == 0)
+		ok = parse_uv_line(tokens, data);
 	else if (ft_strcmp(tokens[0], "f") == 0)
 		ok = parse_face_line(tokens, data);
 	free_string_array(tokens);
@@ -81,8 +87,10 @@ static t_mesh	*assemble_mesh(t_obj_data *data)
 	mesh->triangle_count = data->t_count;
 	mesh->triangles = data->tris;
 	mesh->blas = NULL;
+	mesh->shape = SHAPE_OBJ;
 	free(data->verts);
 	free(data->normals);
+	free(data->uvs);
 	return (mesh);
 }
 

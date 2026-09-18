@@ -39,5 +39,10 @@ t_vec3			trace_ray_recursive(t_scene scene, t_ray ray, int depth);
 
 t_material		new_material(t_vec3 color, float diffuse,
 					float specular, float shininess);
+t_vec2			get_mesh_uv(t_mesh *mesh, t_vec3 point_local,
+					t_vec3 normal_local);
+t_vec3			sample_texture(t_texture *texture, t_vec2 uv);
+char			load_scene_textures(void *mlx, t_scene *scene);
+void			free_scene_textures(void *mlx, t_scene *scene);
 
 #endif

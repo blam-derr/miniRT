@@ -1,0 +1,7 @@
+A 0.35 200,200,200
+C 0,2.5,-9 0,0,1 65
+L -6,8,2 0.9 255,255,255
+pl 0,-2,0 0,1,0 255,255,255 tx "textures/checker.xpm" 50
+sp 0,0,1 1.2 255,255,255 tx "textures/checker.xpm"
+cy -3.5,0.5,1 0,1,0 0.8 2.5 255,255,255 tx "textures/stripes.xpm"
+.obj "models/monkey.obj" 3.2,0.8,1 0.8,5,0.8 1 255,255,255 0.3 tx "textures/uvtest.xpm"

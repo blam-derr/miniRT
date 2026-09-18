@@ -19,6 +19,25 @@
 
 typedef struct s_bvh	t_bvh;
 
+typedef enum e_shape
+{
+	SHAPE_PLANE,
+	SHAPE_SPHERE,
+	SHAPE_CYLINDER,
+	SHAPE_OBJ
+}	t_shape;
+
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_texture;
+
 typedef struct s_material
 {
 	t_vec3		color;
@@ -26,6 +45,10 @@ typedef struct s_material
 	float		specular_coefficient;
 	float		shininess;
 	float		reflectivity;
+	char		has_texture;
+	char		*texture_path;
+	float		texture_scale;
+	t_texture	texture;
 }	t_material;
 
 typedef struct s_mesh
@@ -33,6 +56,7 @@ typedef struct s_mesh
 	size_t			triangle_count;
 	t_triangle		*triangles;
 	t_material		material;
+	t_shape			shape;
 	t_vec3			pos;
 	t_vec3			dir;
 	t_vec3			basis_right;

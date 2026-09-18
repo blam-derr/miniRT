@@ -43,6 +43,7 @@ static void	fill_cap_triangle(t_triangle *tri, t_vec3 center, t_vec3 normal,
 	tri->n[0] = normal;
 	tri->n[1] = normal;
 	tri->n[2] = normal;
+	tri->has_uv = 0;
 }
 
 static void	add_cap_pair(t_mesh *mesh, size_t *index, t_cyl cyl, float j)

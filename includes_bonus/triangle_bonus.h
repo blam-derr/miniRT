@@ -23,6 +23,8 @@ typedef struct s_triangle
 {
 	t_vec3	v[3];
 	t_vec3	n[3];
+	t_vec2	uv[3];
+	char	has_uv;
 }	t_triangle;
 
 char	intersect_triangle(t_vec3 ray_dir, t_vec3 ray_pos, t_triangle tri,
