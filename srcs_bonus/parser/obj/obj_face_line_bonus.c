@@ -39,13 +39,18 @@ static void	free_face_idx(t_face_idx *face)
 
 static int	fill_face_idx(char **tokens, t_obj_data *data, t_face_idx *face)
 {
-	int	i;
+	int					i;
+	t_face_token_params	params;
 
 	i = 0;
 	while (i < face->count)
 	{
-		if (!parse_face_token(tokens[i + 1], data, &face->v[i],
-				&face->n[i], &face->uv[i]))
+		params.token = tokens[i + 1];
+		params.data = data;
+		params.v_idx = &face->v[i];
+		params.uv_idx = &face->uv[i];
+		params.n_idx = &face->n[i];
+		if (!parse_face_token(params))
 			return (0);
 		i++;
 	}

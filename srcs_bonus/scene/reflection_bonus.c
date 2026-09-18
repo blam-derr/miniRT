@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "aabb_bonus.h"
 #include "bvh_bonus.h"
 #include "ray_bonus.h"
 #include "scene_bonus.h"
@@ -18,7 +19,15 @@
 #include <math.h>
 #include <stdio.h>
 
-static t_hit	init_hit(void)
+static void	intersect_ray(t_scene scene, t_ray ray, t_hit *hit)
+{
+	if (!scene.accel)
+		return ;
+	hit->ray_time = ray.tmax;
+	intersect_tlas(scene.accel, &ray, hit);
+}
+
+static t_hit	init_hit_and_intersect(t_scene scene, t_ray ray)
 {
 	t_hit	hit;
 
@@ -26,15 +35,8 @@ static t_hit	init_hit(void)
 	hit.hit_something = 0;
 	hit.has_uv = 0;
 	hit.mesh = NULL;
+	intersect_ray(scene, ray, &hit);
 	return (hit);
-}
-
-static void	intersect_ray(t_scene scene, t_ray ray, t_hit *hit)
-{
-	if (!scene.accel)
-		return ;
-	hit->ray_time = ray.tmax;
-	intersect_tlas(scene.accel, &ray, hit);
 }
 
 static t_vec3	reflected_dir(t_vec3 dir, t_vec3 normal)
@@ -67,8 +69,7 @@ t_vec3	trace_ray_recursive(t_scene scene, t_ray ray, int depth)
 	t_vec3				reflected;
 	float				k;
 
-	hit = init_hit();
-	intersect_ray(scene, ray, &hit);
+	hit = init_hit_and_intersect(scene, ray);
 	if (!hit.hit_something)
 		return (vec3_div(scene.ambient.color, 255.0f));
 	world.point = local_to_world_point(hit.point_local, &hit);

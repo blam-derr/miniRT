@@ -40,6 +40,15 @@ typedef struct s_face_idx
 	int		count;
 }	t_face_idx;
 
+typedef struct s_face_token_params
+{
+	char		*token;
+	t_obj_data	*data;
+	size_t		*v_idx;
+	long		*n_idx;
+	long		*uv_idx;
+}	t_face_token_params;
+
 t_mesh	*parse_obj_file(char *filename);
 int		push_vec3(t_vec3 **arr, size_t *count, size_t *cap, t_vec3 v);
 int		push_vec2(t_vec2 **arr, size_t *count, size_t *cap, t_vec2 uv);
@@ -47,8 +56,7 @@ int		push_triangle(t_obj_data *data, t_triangle tri);
 int		parse_vec3_line(char **tokens, t_obj_data *data, int is_normal);
 int		parse_uv_line(char **tokens, t_obj_data *data);
 int		parse_face_line(char **tokens, t_obj_data *data);
-int		parse_face_token(char *token, t_obj_data *data, size_t *v_idx,
-			long *n_idx, long *uv_idx);
+int		parse_face_token(t_face_token_params params);
 int		emit_triangle(t_obj_data *data, size_t *v, long *n, long *uv);
 void	set_tri_normals(t_obj_data *data, t_triangle *tri, long *n);
 

@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 00:00:00 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/09/17 20:38:08 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/17 20:38:07 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,26 @@ static int	parse_uv_index(char *slash1, char *slash2,
 	return (1);
 }
 
-int	parse_face_token(char *token, t_obj_data *data, size_t *v_idx,
-		long *n_idx, long *uv_idx)
+int	parse_face_token(t_face_token_params params)
 {
 	char	*slash1;
 	char	*slash2;
 	long	resolved;
 
-	*uv_idx = -1;
-	*n_idx = -1;
-	if (!resolve_index(ft_atoi(token), data->v_count, &resolved))
+	*params.uv_idx = -1;
+	*params.n_idx = -1;
+	if (!resolve_index(ft_atoi(params.token), params.data->v_count, &resolved))
 		return (0);
-	*v_idx = (size_t)resolved;
-	slash1 = ft_strchr(token, '/');
+	*params.v_idx = (size_t)resolved;
+	slash1 = ft_strchr(params.token, '/');
 	if (!slash1)
 		return (1);
 	slash2 = ft_strchr(slash1 + 1, '/');
-	if (!parse_uv_index(slash1, slash2, data, uv_idx))
+	if (!parse_uv_index(slash1, slash2, params.data, params.uv_idx))
 		return (0);
 	if (slash2 && slash2[1] != '\0'
-		&& !resolve_index(ft_atoi(slash2 + 1), data->n_count, n_idx))
+		&& !resolve_index(ft_atoi(slash2 + 1),
+			params.data->n_count, params.n_idx))
 		return (0);
 	return (1);
 }
