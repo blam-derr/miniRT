@@ -82,6 +82,7 @@ static void	free_obj_mesh(t_mesh *mesh)
 {
 	free(mesh->triangles);
 	free(mesh->material.texture_path);
+	free(mesh->material.bump_path);
 	free(mesh);
 }
 
@@ -92,7 +93,7 @@ uint8_t	parse_obj(char **values, t_scene *scene)
 	int		len;
 
 	len = string_array_length(values);
-	if ((len != 2 && (len < 12 || len > 16))
+	if ((len != 2 && (len < 12 || len > 19))
 		|| (len != 2 && !check_numeric_range(values, 2, 12)))
 		return (0);
 	if (len != 2 && ft_atof(values[8]) == 0.0)

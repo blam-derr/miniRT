@@ -6,7 +6,7 @@
 /*   By: jode-cas <jode-cas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 17:27:03 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/09/04 20:49:36 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/21 13:49:34 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ t_material		new_material(t_vec3 color, float diffuse,
 t_vec2			get_mesh_uv(t_mesh *mesh, t_vec3 point_local,
 					t_vec3 normal_local);
 t_vec3			sample_texture(t_texture *texture, t_vec2 uv);
+t_vec3			get_bumped_normal(t_mesh *mesh, t_vec3 point_local,
+					t_vec3 normal_local);
 char			load_scene_textures(void *mlx, t_scene *scene);
 void			free_scene_textures(void *mlx, t_scene *scene);
+
+int				is_numeric_token(char *s);
 
 #endif

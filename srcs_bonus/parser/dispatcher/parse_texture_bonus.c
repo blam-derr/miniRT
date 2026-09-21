@@ -6,7 +6,7 @@
 /*   By: fbenini- <fbenini-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 15:36:56 by fbenini-          #+#    #+#             */
-/*   Updated: 2026/09/17 15:43:28 by fbenini-         ###   ########.fr       */
+/*   Updated: 2026/09/21 13:49:39 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,6 @@
 #include "mesh_bonus.h"
 #include "utils_bonus.h"
 #include <stddef.h>
-
-int	is_numeric_token(char *s)
-{
-	int	i;
-	int	has_digit;
-
-	i = 0;
-	has_digit = 0;
-	if (s[i] == '-' || s[i] == '+')
-		i++;
-	while (s[i])
-	{
-		if (ft_isdigit(s[i]))
-			has_digit = 1;
-		else if (s[i] != '.' && s[i] != 'e' && s[i] != 'E'
-			&& s[i] != '-' && s[i] != '+')
-			return (0);
-		i++;
-	}
-	return (has_digit);
-}
 
 static char	*extract_xpm_path(char *token)
 {
@@ -56,30 +35,44 @@ static char	*extract_xpm_path(char *token)
 	return (path);
 }
 
-static int	parse_texture_tail(char **values, int idx, int len,
-		t_material *material)
+static void	set_map_fields(t_material *material, int is_bump,
+		char *path, float scale)
+{
+	if (is_bump)
+	{
+		material->bump_path = path;
+		material->has_bump = 1;
+		material->bump_strength = scale;
+	}
+	else
+	{
+		material->texture_path = path;
+		material->has_texture = 1;
+		material->texture_scale = scale;
+	}
+}
+
+static int	parse_map_tail(char **values, int idx, t_material *material,
+		int is_bump)
 {
 	char	*path;
+	float	scale;
 	int		next;
 
-	next = idx + 2;
-	if (next < len)
-	{
-		if (!is_numeric_token(values[next]))
-			return (0);
-		next++;
-	}
-	if (next != len)
-		return (0);
+	if (!values[idx + 1])
+		return (-1);
 	path = extract_xpm_path(values[idx + 1]);
 	if (!path)
-		return (0);
-	material->texture_path = path;
-	material->has_texture = 1;
-	material->texture_scale = 1.0f;
-	if (idx + 2 < len)
-		material->texture_scale = ft_atof(values[idx + 2]);
-	return (1);
+		return (-1);
+	next = idx + 2;
+	scale = 1.0f;
+	if (values[next] && is_numeric_token(values[next]))
+		scale = ft_atof(values[next++]);
+	if (values[next] && ft_strcmp(values[next], "tx") != 0
+		&& ft_strcmp(values[next], "bm") != 0)
+		return (-1);
+	set_map_fields(material, is_bump, path, scale);
+	return (next);
 }
 
 static int	parse_reflectivity(char *value, t_material *material)
@@ -98,17 +91,23 @@ static int	parse_reflectivity(char *value, t_material *material)
 int	parse_texture_opt(char **values, int len, int prefix_len,
 		t_material *material)
 {
-	if (len == prefix_len)
-		return (1);
-	if (len == prefix_len + 1)
-		return (parse_reflectivity(values[prefix_len], material));
-	if (ft_strcmp(values[prefix_len], "tx") == 0)
-		return (parse_texture_tail(values, prefix_len, len, material));
-	if (!parse_reflectivity(values[prefix_len], material))
-		return (0);
-	if (len == prefix_len + 2)
-		return (1);
-	if (ft_strcmp(values[prefix_len + 1], "tx") != 0)
-		return (0);
-	return (parse_texture_tail(values, prefix_len + 1, len, material));
+	int	i;
+	int	next;
+
+	i = prefix_len;
+	if (i < len && is_numeric_token(values[i]))
+		i += parse_reflectivity(values[i], material);
+	while (i < len)
+	{
+		if (ft_strcmp(values[i], "tx") == 0)
+			next = parse_map_tail(values, i, material, 0);
+		else if (ft_strcmp(values[i], "bm") == 0)
+			next = parse_map_tail(values, i, material, 1);
+		else
+			return (0);
+		if (next < 0)
+			return (0);
+		i = next;
+	}
+	return (1);
 }

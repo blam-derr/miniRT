@@ -58,5 +58,10 @@ t_material	new_material(t_vec3 color, float diffuse,
 	material.texture_scale = 1.0f;
 	material.texture.img = NULL;
 	material.texture.addr = NULL;
+	material.has_bump = 0;
+	material.bump_path = NULL;
+	material.bump_strength = 1.0f;
+	material.bump.img = NULL;
+	material.bump.addr = NULL;
 	return (material);
 }

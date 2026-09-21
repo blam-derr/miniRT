@@ -39,12 +39,6 @@ static t_hit	init_hit_and_intersect(t_scene scene, t_ray ray)
 	return (hit);
 }
 
-static t_vec3	reflected_dir(t_vec3 dir, t_vec3 normal)
-{
-	return (vec3_normalize(vec3_sub(dir,
-				vec3_mul(normal, 2.0f * vec3_dot(dir, normal)))));
-}
-
 static t_ray	make_reflect_ray(t_ray ray, t_world_translated world)
 {
 	t_vec3	dir;
@@ -55,10 +49,30 @@ static t_ray	make_reflect_ray(t_ray ray, t_world_translated world)
 	normal = world.geometric_normal;
 	if (vec3_dot(normal, ray.dir) >= 0.0f)
 		normal = vec3_mul(normal, -1.0f);
-	dir = reflected_dir(ray.dir, world.normal);
+	dir = vec3_normalize(vec3_sub(ray.dir,
+				vec3_mul(world.normal,
+					2.0f * vec3_dot(ray.dir, world.normal))));
 	bias = fmaxf(EPSILON, 1e-3 * vec3_length(world.point));
 	origin = vec3_add(world.point, vec3_mul(normal, bias));
 	return (ray_make(origin, dir, EPSILON, INFINITY));
+}
+
+static t_world_translated	build_world(t_hit *hit)
+{
+	t_world_translated	world;
+
+	world.point = local_to_world_point(hit->point_local, hit);
+	if (hit->mesh->material.has_bump)
+		hit->normal_local = get_bumped_normal(hit->mesh,
+				hit->point_local, hit->normal_local);
+	world.normal = local_to_world_normal(hit->normal_local, hit);
+	world.geometric_normal = local_to_world_normal(
+			hit->geometric_normal_local, hit);
+	world.point_local = hit->point_local;
+	world.geometric_normal_local = hit->geometric_normal_local;
+	world.uv = hit->uv;
+	world.has_uv = hit->has_uv;
+	return (world);
 }
 
 t_vec3	trace_ray_recursive(t_scene scene, t_ray ray, int depth)
@@ -72,14 +86,7 @@ t_vec3	trace_ray_recursive(t_scene scene, t_ray ray, int depth)
 	hit = init_hit_and_intersect(scene, ray);
 	if (!hit.hit_something)
 		return (vec3_div(scene.ambient.color, 255.0f));
-	world.point = local_to_world_point(hit.point_local, &hit);
-	world.normal = local_to_world_normal(hit.normal_local, &hit);
-	world.geometric_normal = local_to_world_normal(
-			hit.geometric_normal_local, &hit);
-	world.point_local = hit.point_local;
-	world.geometric_normal_local = hit.geometric_normal_local;
-	world.uv = hit.uv;
-	world.has_uv = hit.has_uv;
+	world = build_world(&hit);
 	local = shade_blinn_phong(world, vec3_mul(ray.dir, -1.0f),
 			scene, hit.mesh);
 	k = hit.mesh->material.reflectivity;

@@ -79,6 +79,7 @@ SRCS_BONUS =	./srcs_bonus/main_bonus.c \
 		./srcs_bonus/utils/arrays/string_array_utils_bonus.c \
 		./srcs_bonus/utils/arrays/ft_split_charset_bonus.c \
 		./srcs_bonus/utils/string/is_whitespace_bonus.c \
+		./srcs_bonus/utils/string/is_numeric_token_bonus.c \
 		./srcs_bonus/utils/draw/put_pixel_bonus.c \
 		./srcs_bonus/utils/draw/color_bonus.c \
 		./srcs_bonus/utils/algebra/base_vec3_bonus.c \
@@ -111,6 +112,7 @@ SRCS_BONUS =	./srcs_bonus/main_bonus.c \
 		./srcs_bonus/mesh/cylinder_caps_bonus.c \
 		./srcs_bonus/texture/texture_load_bonus.c \
 		./srcs_bonus/texture/texture_sample_bonus.c \
+		./srcs_bonus/texture/bump_map_bonus.c \
 		./srcs_bonus/texture/uv_map_bonus.c \
 		./srcs_bonus/bvh/aabb_bonus.c \
 		./srcs_bonus/bvh/aabb_metrics_bonus.c \

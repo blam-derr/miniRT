@@ -49,6 +49,10 @@ typedef struct s_material
 	char		*texture_path;
 	float		texture_scale;
 	t_texture	texture;
+	char		has_bump;
+	char		*bump_path;
+	float		bump_strength;
+	t_texture	bump;
 }	t_material;
 
 typedef struct s_mesh

@@ -51,7 +51,7 @@ uint8_t	parse_sphere(char **values, t_scene *scene)
 	int			len;
 
 	len = string_array_length(values);
-	if (len < 8 || len > 12 || !check_numeric_range(values, 1, 8))
+	if (len < 8 || len > 15 || !check_numeric_range(values, 1, 8))
 		return (0);
 	material = parse_object_material(values, 5);
 	if (!parse_texture_opt(values, len, 8, &material))
@@ -75,7 +75,7 @@ uint8_t	parse_plane(char **values, t_scene *scene)
 	int			len;
 
 	len = string_array_length(values);
-	if (len < 10 || len > 14 || !check_numeric_range(values, 1, 10))
+	if (len < 10 || len > 17 || !check_numeric_range(values, 1, 10))
 		return (0);
 	material = parse_object_material(values, 7);
 	if (!parse_texture_opt(values, len, 10, &material))
@@ -101,7 +101,7 @@ uint8_t	parse_cylinder(char **values, t_scene *scene)
 	int			len;
 
 	len = string_array_length(values);
-	if (len < 12 || len > 16 || !check_numeric_range(values, 1, 12))
+	if (len < 12 || len > 19 || !check_numeric_range(values, 1, 12))
 		return (0);
 	material = parse_object_material(values, 9);
 	if (!parse_texture_opt(values, len, 12, &material))

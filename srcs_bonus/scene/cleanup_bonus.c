@@ -23,6 +23,7 @@ static void	destroy_mesh(void *mesh_ptr)
 	mesh = (t_mesh *)mesh_ptr;
 	free(mesh->triangles);
 	free(mesh->material.texture_path);
+	free(mesh->material.bump_path);
 	free(mesh);
 }
 
