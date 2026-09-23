@@ -32,7 +32,12 @@ Unlike traditional rasterization, Ray Tracing simulates the physical path of lig
 - [x] **Interface:** Window management and event handling (ESC and window close button).
 - [x] **Parsing:** Strict validation of `.rt` scene files.
 
----
+### 🔹 Bonus Part
+
+- [x] **Multi-spot light:** Support for multiple light spots in a single scene.
+- [x] **Texture and color disruption:** Texture rendering for meshes.
+- [x] **.obj mesh support:** Parsing and rendering of objects in the wavefront file format.
+- [x] **Specular reflection:** Recursive reflection, resulting in a mirror like surface.
 
 ## 🛠️ Instructions
 
@@ -51,3 +56,12 @@ make
 
 # Run the program with an example scene
 ./miniRT scenes/mandatory_scene.rt
+
+## 📚 Resources
+
+Learning resources that helped us while doing this project
+
+- [Moller-Trumbore Intersection algorhitm page on wikipedia](https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm)
+- [Acceleration Structures and BVH on Scratchapixel](https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-acceleration-structure//bounding-volume-hierarchy-BVH-part1.html)
+- [Ray Tracing in One Weekend](https://raytracing.github.io/)
+- [pbrt.org](https://pbr-book.org/4ed/contents)
